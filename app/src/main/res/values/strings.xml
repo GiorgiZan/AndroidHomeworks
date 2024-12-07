@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="convert_num_to_word_ge">სიტყვაში გადაყვანა</string>
+    <string name="enter_num_hint_ge">შეიყვანეთ რიცხვი 1-1000</string>
+    <string name="convert_num_to_word_en">Convert to a word</string>
+    <string name="enter_num_hint_en">Enter a number 1-1000</string>
+    <string name="georgian_toggle">ქართული</string>
+    <string name="english_toggle">English</string>
+    <string name="empty_message_en">"Enter a number!"</string>
+    <string name="out_of_bounds_message_en">Enter a number that is between 1 and 1000!</string>
+    <string name="empty_message_ge">"შეიყვანეთ ციფრი!"</string>
+    <string name="out_of_bounds_message_ge">შეიყვანეთ რიცხვი 1-დან 1000-ის ჩათვლით!</string>
+    <string name="language_to_english">Language changed to english</string>
+    <string name="language_to_georgian">Language changed to english</string>
 </resources>
