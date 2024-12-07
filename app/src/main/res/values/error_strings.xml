@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_empty">Email field should not be empty!</string>
+    <string name="email_not_valid">Email should contain @ symbol! </string>
+    <string name="email_length_not_valid">Email should be more than 7 but less than 35 symbols!</string>
+    <string name="username_empty">Username field should not be empty!</string>
+    <string name="username_length_not_valid">Username should be at least 10 but less than 35 symbols</string>
+    <string name="first_name_empty">First name field should not be empty!</string>
+    <string name="first_name_too_long">First name should be less than 25 symbols!</string>
+    <string name="last_name_empty">Last name field should not be empty!</string>
+    <string name="last_name_too_long">Last name should be less than 25 symbols!</string>
+    <string name="age_empty">"Age field should not be empty!</string>
+    <string name="age_not_valid">Age cannot be zero and must be less than hundred!</string>
+</resources>
