@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="users_form">Users form</string>
+    <string name="enter_full_name">Enter Full Name</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="users_count"><![CDATA[Users -> 0]]></string>
+    <string name="add_user">Add user</string>
+    <string name="get_user_info">Get user info</string>
+    <string name="find_user_by_email">Find user by Email</string>
 </resources>

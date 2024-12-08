@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_empty">Email should not be empty!</string>
+    <string name="email_not_valid">Email should contain @ symbol! </string>
+    <string name="email_length_not_valid">Email length should be more than 7 but less than 35 symbols!</string>
+    <string name="email_already_exists">User with that Email already exists! try another Email!</string>
+
+    <string name="full_name_empty">First name should not be empty!</string>
+    <string name="full_name_size_not_valid">Full name length should be more than 7 and less than 30 symbols!</string>
+
+    <string name="user_not_found">User not found</string>
+</resources>
