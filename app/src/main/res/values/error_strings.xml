@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="anagram_field_empty">Anagram field should not be empty!</string>
+</resources>

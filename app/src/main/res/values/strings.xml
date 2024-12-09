@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="save_button">Save</string>
+    <string name="output_button">Output</string>
+    <string name="clear_button">Clear</string>
 </resources>
