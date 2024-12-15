@@ -7,13 +7,73 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/photo_logo"
+        app:layout_constraintStart_toStartOf="@id/main"
+        app:layout_constraintEnd_toEndOf="@id/main"
+        app:layout_constraintTop_toTopOf="@id/main"
+        app:layout_constraintBottom_toBottomOf="@id/main"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRegister"
+        android:background="@drawable/black_rounded_rectangle"
+        android:layout_width="167dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="33dp"
+        android:text="@string/register"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/btnLogIn"
+        app:layout_constraintEnd_toEndOf="@id/main"
+        app:layout_constraintBottom_toBottomOf="@id/main"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogIn"
+        android:layout_width="167dp"
+        android:layout_height="52dp"
+        android:background="@drawable/rounded_rectangle_black_corners"
+        android:layout_marginBottom="33dp"
+        android:text="@string/log_in"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/main"
+        app:layout_constraintEnd_toStartOf="@id/btnRegister"
+        app:layout_constraintBottom_toBottomOf="@id/main"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvFullNameId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="40dp"
+        android:textSize="11sp"
+        android:text="@string/pawel_full_name_id"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogIn"
+        app:layout_constraintStart_toEndOf="@id/ivPawelIcon"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:text="@string/pawel_full_name"
+        app:layout_constraintBottom_toTopOf="@+id/tvFullNameId"
+        app:layout_constraintStart_toEndOf="@id/ivPawelIcon"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPawelIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/pawel_icon"
+        app:layout_constraintStart_toStartOf="@id/main"
+        app:layout_constraintTop_toTopOf="@id/tvFullName"
+        app:layout_constraintBottom_toBottomOf="@+id/tvFullNameId"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

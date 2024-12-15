@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "410404503561",
+    "project_id": "registerlogin-73722",
+    "storage_bucket": "registerlogin-73722.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410404503561:android:46f327fa1380786d8a78d8",
+        "android_client_info": {
+          "package_name": "com.example.androidhomeworks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2KwmeCigf1H-1Hx3TlWahrPm7q_wK958"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

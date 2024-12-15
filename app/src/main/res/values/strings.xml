@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="register">REGISTER</string>
+    <string name="log_in">LOG IN</string>
+    <string name="register_title">Register</string>
+    <string name="enter_email_hint">Enter Email</string>
+    <string name="enter_password_hint">Enter Password</string>
+    <string name="next">NEXT</string>
+    <string name="enter_username_hint">Enter Username</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="terms_and_Privacy">By signing up, you agree to Photo’s <u>Terms of Service</u> and <u>Privacy Policy</u>.</string>
+    <string name="terms_and_privacy_tooltip">By signing up you are selling your soul 👍</string>
+    <string name="log_in_title">Log in</string>
+    <string name="registration_successful">Registration successful: %1$s</string>
+    <string name="registration_failed">Registration failed: %1$s</string>
+    <string name="login_successful">Login successful: %1$s</string>
+    <string name="login_failed">Login failed: %1$s</string>
+    <string name="email_symbol">\@</string>
+    <string name="pawel_full_name_id">"@"pawel_czerwinski</string>
+    <string name="pawel_full_name">Pawel Czerwinski</string>
 </resources>
