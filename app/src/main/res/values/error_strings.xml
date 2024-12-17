@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="first_name_empty">First name should not be empty!</string>
+    <string name="first_name_length">First name cannot be more than 20 symbols!</string>
+    <string name="last_name_empty">Last name should not be empty!</string>
+    <string name="last_name_length">Last name cannot be more than 20 symbols!</string>
+    <string name="age_should_empty">Age should not be empty!</string>
+    <string name="age_zero">Age cannot be zero!</string>
+    <string name="email_empty">Email cannot be empty!</string>
+    <string name="email_invalid">Email should contain @ symbol</string>
+    <string name="email_length">Email length should be more than 7 but less than 35 symbols!</string>
+
+    <string name="user_not_found_update_error">User with that email should exist to update values</string>
+    <string name="user_not_found_delete_error">User with that email does not exist</string>
+    <string name="age_more_than_hundred">Age cannot be more than 100!</string>
+</resources>

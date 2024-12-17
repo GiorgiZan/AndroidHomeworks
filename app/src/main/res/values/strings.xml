@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="enter_first_name_hint">Enter First Name</string>
+    <string name="enter_last_name_hint">Enter Last Name</string>
+    <string name="enter_age_hint">Enter Age</string>
+    <string name="enter_email_hint">Enter Email</string>
+    <string name="add_user_btn">add user</string>
+    <string name="delete_user_btn">delete user</string>
+    <string name="error_status">Error</string>
+    <string name="success_status">Success</string>
+    <string name="active_users">Active users: %1$d</string>
+    <string name="user_with_that_email_exists">User with that email already exists!</string>
+    <string name="deletes_user_with_email">Deletes user with email</string>
+    <string name="update_user_btn">update user</string>
+    <string name="updates_user_with_email">Updates user with email</string>
+    <string name="user_successfully_updated">User successfully updated</string>
+    <string name="deleted_users">Deleted users: %1$d</string>
+    <string name="user_form_title">User Form</string>
+    <string name="email_symbol">"@"</string>
+    <string name="changing_nothing_when_updating">User values were same, nothing changed</string>
+
+
 </resources>
