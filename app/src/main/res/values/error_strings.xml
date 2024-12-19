@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_empty">Email cannot be empty!</string>
+    <string name="email_invalid">Email should contain @ symbol</string>
+    <string name="email_length">Email length should be more than 7 but less than 35 symbols!</string>
+
+    <string name="password_empty">Password should not be empty!</string>
+    <string name="password_length">Password length should be more than 5 symbols!</string>
+</resources>
