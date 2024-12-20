@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="add_new_user">add new user</string>
+    <string name="enter_id">Enter id</string>
+    <string name="enter_first_name">Enter first name</string>
+    <string name="enter_last_name">Enter last name</string>
+    <string name="enter_birthday">Enter birthday</string>
+    <string name="enter_address">Enter address</string>
+    <string name="enter_email">Enter email</string>
+    <string name="search">Search</string>
+    <string name="enter_desc">Enter desc</string>
+    <string name="enter_id_to_update">Enter Id to update</string>
+    <string name="desc">desc</string>
+    <string name="email">email</string>
+    <string name="add_description">add Description</string>
+    <string name="save">Save</string>
+    <string name="enter_user_info">Enter User info</string>
 </resources>
