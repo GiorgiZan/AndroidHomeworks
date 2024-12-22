@@ -1,25 +1,32 @@
 package com.example.androidhomeworks
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.androidhomeworks.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
-import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.util.Date
-import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val addUser = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+        binding.tvId.text =
+            getString(R.string.display_id, result.data?.getIntExtra("id", -1).toString())
+        binding.tvFirstName.text =
+            getString(R.string.display_first_name, result.data?.getStringExtra("firstName"))
+        binding.tvLastName.text =
+            getString(R.string.display_last_name,  result.data?.getStringExtra("lastName"))
+        binding.tvBirthday.text =
+            getString(R.string.display_birthday,  result.data?.getStringExtra("birthday"))
+        binding.tvAddress.text =
+            getString(R.string.display_address,  result.data?.getStringExtra("address"))
+        binding.tvEmail.text =
+            getString(R.string.display_email,  result.data?.getStringExtra("email"))
+        binding.tvDesc.text =
+            getString(R.string.display_desc,  result.data?.getStringExtra("desc"))
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +34,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         displayUserInfo()
         goToAddUserActivity()
-        newUser()
-        addDescToUser()
     }
 
 
@@ -36,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         val users = UsersList.users
         binding.btnSearch.setOnClickListener {
             if (binding.etUserInfoField.text.toString().isEmpty()) {
-                binding.etUserInfoField.error = "Search Field should not be empty!"
+                binding.etUserInfoField.error = getString(R.string.search_empty)
                 clearFields()
                 return@setOnClickListener
             }
@@ -44,55 +49,43 @@ class MainActivity : AppCompatActivity() {
             val userBirthday = binding.etUserInfoField.text.toString()
             val foundUser = users.find {
                 val fullName = "${it.firstName} ${it.lastName}".lowercase()
-                fullName == userInfoSearchField || convertTimestampToDate(
+                fullName == userInfoSearchField || HelperMethods.convertTimestampToDate(
                     it.birthday.lowercase()
                 ) == userBirthday || it.email.lowercase() == userInfoSearchField || it.desc?.lowercase() == userInfoSearchField || it.address.lowercase() == userInfoSearchField
             }
 
             if (foundUser == null) {
-                Snackbar.make(binding.root, "User not found!", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root,
+                    getString(R.string.user_not_found), Snackbar.LENGTH_SHORT).show()
                 binding.btnGoToAddNewUser.visibility = View.VISIBLE
                 clearFields()
                 return@setOnClickListener
             }
 
-            binding.tvId.text = "id :" + foundUser?.id.toString()
-            binding.tvFirstName.text = "First Name: " + foundUser?.firstName.toString()
-            binding.tvLastName.text = "Last Name: " + foundUser?.lastName.toString()
-            binding.tvBirthday.text = "Birthday: " + convertTimestampToDate(foundUser?.birthday.toString())
-            binding.tvAddress.text = "Address: " + foundUser?.address.toString()
-            binding.tvEmail.text = "Email: " + foundUser?.email.toString()
-            binding.tvDesc.text = "desc: " + foundUser?.desc.toString()
+            binding.tvId.text =
+                getString(R.string.display_id, foundUser.id.toString())
+            binding.tvFirstName.text =
+                getString(R.string.display_first_name, foundUser.firstName)
+            binding.tvLastName.text =
+                getString(R.string.display_last_name, foundUser.lastName)
+            binding.tvBirthday.text =
+                getString(R.string.display_birthday, HelperMethods.convertTimestampToDate(foundUser.birthday))
+            binding.tvAddress.text =
+                getString(R.string.display_address, foundUser.address)
+            binding.tvEmail.text =
+                getString(R.string.display_email, foundUser.email)
+            binding.tvDesc.text =
+                getString(R.string.display_desc, foundUser.desc.toString())
         }
     }
 
-    private fun addDescToUser() {
-        binding.btnAddDescription.setOnClickListener {
-            if (binding.etIdToUpdate.text.toString().isEmpty()) {
-                binding.etIdToUpdate.error = "Id should not be empty"
-                return@setOnClickListener
-            }
-            if (binding.etIdToUpdate.text.toString().isEmpty()) {
-                binding.etDescToUpdate.error = "Desc should not be empty"
-            }
-            val user = UsersList.users.find { it.id == binding.etIdToUpdate.text.toString().toInt() }
 
-            user?.apply { desc = binding.etDescToUpdate.text.toString()}
-        }
-
-    }
-
-    private fun convertTimestampToDate(timestamp: String): String {
-        val timestampLong = timestamp.toLong()
-        val date = Date(timestampLong)
-        val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-        return sdf.format(date)
-    }
 
     private fun goToAddUserActivity() {
         binding.btnGoToAddNewUser.setOnClickListener() {
             val intent = Intent(this, AddUserActivity::class.java)
-            startActivity(intent)
+            intent.putExtra("desc", binding.etUserInfoField.text.toString() )
+            addUser.launch(intent)
         }
     }
 
@@ -104,32 +97,8 @@ class MainActivity : AppCompatActivity() {
         binding.tvAddress.text = ""
         binding.tvEmail.text = ""
         binding.tvDesc.text = ""
-
-        binding.etIdToUpdate.text?.clear()
-        binding.etDescToUpdate.text?.clear()
     }
 
-
-    private fun newUser(){
-        val id = intent.getIntExtra("id", -1)
-        val firstName = intent.getStringExtra("firstName") ?: ""
-        val lastName = intent.getStringExtra("lastName") ?: ""
-        val birthday = intent.getStringExtra("birthday") ?: ""
-        val address = intent.getStringExtra("address") ?: ""
-        val email = intent.getStringExtra("email") ?: ""
-
-
-        binding.tvId.text = id.toString()
-        binding.tvFirstName.text = firstName
-        binding.tvLastName.text = lastName
-        binding.tvBirthday.text = birthday
-        binding.tvAddress.text = address
-        binding.tvEmail.text = email
-
-        if (id == -1) {
-            binding.tvId.text = ""
-        }
-    }
 }
 
 

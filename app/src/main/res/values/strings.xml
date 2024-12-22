@@ -15,4 +15,14 @@
     <string name="add_description">add Description</string>
     <string name="save">Save</string>
     <string name="enter_user_info">Enter User info</string>
+    <string name="display_first_name">First Name: %1$s</string>
+    <string name="display_id">id : %1$s</string>
+    <string name="display_last_name">Last Name: %1$s</string>
+    <string name="display_birthday">Birthday: %1$s</string>
+    <string name="display_address">Address: %1$s</string>
+    <string name="display_email">Email: %1$s</string>
+    <string name="display_desc">desc: %1$s</string>
+    <string name="birthday_empty">Birthday should not be empty</string>
+    <string name="address_empty">Address should not be empty</string>
+    <string name="email_empty">Email should not be empty</string>
 </resources>

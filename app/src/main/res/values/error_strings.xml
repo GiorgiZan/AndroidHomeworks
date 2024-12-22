@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="id_empty">Id should not be empty</string>
+    <string name="desc_empty">Desc should not be empty</string>
+    <string name="search_empty">Search Field should not be empty!</string>
+    <string name="user_not_found">User not found!</string>
+    <string name="first_empty">First name should not be empty</string>
+    <string name="last_empty">Last name should not be empty</string>
+    <string name="user_already_exists">User with that id already exists</string>
+</resources>
