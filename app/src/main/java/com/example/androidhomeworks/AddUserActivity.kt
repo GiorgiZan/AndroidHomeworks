@@ -1,9 +1,7 @@
 package com.example.androidhomeworks
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.androidhomeworks.databinding.ActivityAddUserBinding
 import com.google.android.material.snackbar.Snackbar
@@ -11,7 +9,6 @@ import com.google.android.material.snackbar.Snackbar
 class AddUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddUserBinding
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddUserBinding.inflate(layoutInflater)
@@ -19,7 +16,6 @@ class AddUserActivity : AppCompatActivity() {
         addUser()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun addUser(){
         binding.btnSaveUser.setOnClickListener{
             if (binding.etId.text.toString().isEmpty()){
