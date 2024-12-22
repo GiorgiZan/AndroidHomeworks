@@ -48,10 +48,11 @@ class MainActivity : AppCompatActivity() {
             val userInfoSearchField = binding.etUserInfoField.text.toString().lowercase()
             val userBirthday = binding.etUserInfoField.text.toString()
             val foundUser = users.find {
+
                 val fullName = "${it.firstName} ${it.lastName}".lowercase()
                 fullName == userInfoSearchField || HelperMethods.convertTimestampToDate(
                     it.birthday.lowercase()
-                ) == userBirthday || it.email.lowercase() == userInfoSearchField || it.desc?.lowercase() == userInfoSearchField || it.address.lowercase() == userInfoSearchField
+                ) == userBirthday || it.id.toString() == userBirthday || it.email.lowercase() == userInfoSearchField || it.desc?.lowercase() == userInfoSearchField || it.address.lowercase() == userInfoSearchField
             }
 
             if (foundUser == null) {
