@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/categories_recycle"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_rectangles"
+        android:backgroundTint="@color/dark_green"
+        android:textSize="14sp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:textColor="@color/gray"
+        android:textAllCaps="false"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="@id/categories_recycle"
+        app:layout_constraintTop_toTopOf="@id/categories_recycle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

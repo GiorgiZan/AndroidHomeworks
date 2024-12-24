@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="price_of_clothe">$%1$d</string>
 </resources>
