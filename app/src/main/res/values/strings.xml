@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="send_to">SEND TO</string>
+    <string name="edit_underline"><u>Edit</u></string>
+    <string name="delivery_address">Delivery address</string>
+    <string name="add_new_address">Add new address</string>
+    <string name="choose_address_location">Choose address location</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_id">Enter Id</string>
+    <string name="enter_address">Enter Address</string>
+    <string name="add">add</string>
+    <string name="edit">Edit</string>
+    <string name="house">House</string>
+    <string name="office">Office</string>
+    <string name="apartment">Apartment</string>
+    <string-array name="address_locations">
+        <item>House</item>
+        <item>Office</item>
+        <item>Apartment</item>
+    </string-array>
 </resources>
