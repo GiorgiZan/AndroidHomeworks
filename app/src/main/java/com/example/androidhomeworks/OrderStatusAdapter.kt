@@ -55,9 +55,8 @@ class OrderStatusAdapter(
 
 
             binding.btnStatus.setOnClickListener {
-                OrderStatusList.statusList = OrderStatusList.statusList.mapIndexed { index, item ->
-                    item.copy(activated = (index == adapterPosition))
-                }.toMutableList()
+                OrderStatusList.statusList.forEachIndexed { index, item ->
+                    item.activated = (index == adapterPosition)}
 
                 submitList(OrderStatusList.statusList.toList())
 
