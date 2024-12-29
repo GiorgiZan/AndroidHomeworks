@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    tools:context=".OrdersFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLogoIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/logo_icon"
+        app:layout_constraintStart_toStartOf="@+id/main"
+        app:layout_constraintTop_toTopOf="@+id/main" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:text="@string/my_orders"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/main"
+        app:layout_constraintStart_toStartOf="@+id/main"
+        app:layout_constraintTop_toTopOf="@+id/main" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bell_icon"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/main"
+        app:layout_constraintTop_toTopOf="@+id/main" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/status_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="32dp"
+        android:paddingStart="50dp"
+        android:paddingEnd="33dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="@id/main"
+        app:layout_constraintStart_toStartOf="@id/main"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/order_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_marginTop="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/status_recycler_view"
+        app:layout_constraintStart_toStartOf="@id/main"
+        app:layout_constraintEnd_toEndOf="@id/main"
+        app:layout_constraintBottom_toBottomOf="@id/main" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
