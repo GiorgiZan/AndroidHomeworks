@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConfigurationFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSelectDimensions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_dimensions_3x3_to_5x5"
+        android:textSize="18sp"
+        android:layout_gravity="center" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinnerGameDimensions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/dimensions_array"
+        android:spinnerMode="dropdown"
+        android:layout_gravity="center" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnStartGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/start_game"
+        android:layout_gravity="bottom"/>
+
+</FrameLayout>
