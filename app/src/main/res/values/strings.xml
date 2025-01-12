@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="line">|</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_orders">My Orders</string>
+    <string name="completed">Completed</string>
+    <string name="active">Active</string>
+    <string name="leave_a_review">Leave a Review</string>
+    <string name="how_is_your_order">How is your order?</string>
+    <string name="qty">Qty = %1$d</string>
+    <string name="order_price">$%1$s</string>
+    <string name="please_give_your_rating_also_your_review"><![CDATA[Please give your rating & also your review…]]></string>
+    <string name="wrtie_a_review">Write a review</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+    <string name="review_should_not_be_empty">Review should not be empty!</string>
+    <string name="review_added_to_order">Review added to order!</string>
+    <string name="provide_a_rating">Provide a rating!</string>
+    <string name="thank_you_for_rating_order">Thank you for rating order</string>
+    <string name="buy_again">Buy again</string>
 </resources>

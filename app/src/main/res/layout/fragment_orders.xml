@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".OrdersFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivMainLogo"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/main_logo"
+        android:tint="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMyOrders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/my_orders"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ivMainLogo"
+        app:layout_constraintStart_toEndOf="@+id/ivMainLogo"
+        app:layout_constraintTop_toTopOf="@+id/ivMainLogo" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivThreeDots"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/three_dots"
+        android:tint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivMagnifyingGlass"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="25dp"
+        android:src="@drawable/magnifying_glass"
+        android:tint="@android:color/white"
+        app:layout_constraintEnd_toStartOf="@+id/ivThreeDots"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvActive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="70dp"
+        android:paddingTop="40dp"
+        android:paddingEnd="50dp"
+        android:paddingBottom="20dp"
+        android:text="@string/active"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvCompleted"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyOrders" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCompleted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="60dp"
+        android:paddingTop="40dp"
+        android:paddingEnd="50dp"
+        android:paddingBottom="20dp"
+        android:text="@string/completed"
+        android:textColor="@color/status_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvActive"
+        app:layout_constraintTop_toTopOf="@+id/tvActive" />
+
+    <View
+        android:id="@+id/underlineActive"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="20dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/tvCompleted"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvActive" />
+
+    <View
+        android:id="@+id/underlineCompleted"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/status_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/underlineActive"
+        app:layout_constraintTop_toBottomOf="@+id/tvCompleted" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/underlineActive" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
