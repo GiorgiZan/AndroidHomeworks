@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.AddNewCardFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBackIcon"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_background"
+        android:elevation="10dp"
+        android:paddingStart="14dp"
+        android:paddingTop="11dp"
+        android:paddingEnd="14dp"
+        android:paddingBottom="11dp"
+        android:src="@drawable/arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAddNewCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/add_new_card"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/card"
+        android:layout_width="365dp"
+        android:layout_height="205dp"
+        android:layout_marginTop="39dp"
+        android:background="@drawable/mastercard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddNewCard" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCardNumbers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:letterSpacing="0.2"
+        android:text="@string/default_card_num"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/card"
+        app:layout_constraintStart_toStartOf="@+id/card"
+        app:layout_constraintTop_toTopOf="@+id/card" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCardHolderName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:text="@string/cardholder_name"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvCardNumbers"
+        app:layout_constraintTop_toBottomOf="@+id/tvCardNumbers" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvValidThru"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/valid_thru"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/card"
+        app:layout_constraintTop_toBottomOf="@+id/tvCardNumbers" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/name"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="@+id/tvCardHolderName"
+        app:layout_constraintTop_toBottomOf="@+id/tvCardHolderName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/mm_yy"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvValidThru"
+        app:layout_constraintTop_toBottomOf="@+id/tvValidThru" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvHolderName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="29dp"
+        android:text="@string/cardholder_name"
+        android:textColor="@color/gray_text"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card" />
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etCardName"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/gray_rounded_rectangle"
+        android:drawablePadding="10dp"
+        android:hint="@string/enter_name_hint"
+        android:inputType="text"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@+id/tvHolderName"
+        app:layout_constraintTop_toBottomOf="@+id/tvHolderName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCardNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="29dp"
+        android:text="@string/card_number"
+        android:textColor="@color/gray_text"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCardName" />
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etCardNumber"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/gray_rounded_rectangle"
+        android:drawablePadding="10dp"
+        android:hint="@string/enter_card_number"
+        android:inputType="number"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@+id/tvCardNumber"
+        app:layout_constraintTop_toBottomOf="@+id/tvCardNumber" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCardExpires"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="29dp"
+        android:text="@string/expires"
+        android:textColor="@color/gray_text"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCardNumber" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etCardExpires"
+        android:layout_width="142dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/gray_rounded_rectangle"
+        android:drawablePadding="10dp"
+        android:hint="@string/enter_date"
+        android:inputType="text"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textSize="13sp"
+        android:maxLength="5"
+        app:layout_constraintStart_toStartOf="@+id/tvCardExpires"
+        app:layout_constraintTop_toBottomOf="@+id/tvCardExpires" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCardCvv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="143dp"
+        android:text="@string/cvv"
+        android:textColor="@color/gray_text"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCardNumber" />
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etCardCvv"
+        android:layout_width="142dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/gray_rounded_rectangle"
+        android:drawablePadding="10dp"
+        android:hint="@string/enter_cvv"
+        android:inputType="number"
+        android:paddingStart="15dp"
+        android:maxLength="3"
+        android:paddingEnd="15dp"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@+id/tvCardCvv"
+        app:layout_constraintTop_toBottomOf="@+id/tvCardCvv" />
+
+
+    <RadioGroup
+        android:id="@+id/paymentOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/etCardCvv"
+        app:layout_constraintStart_toStartOf="@+id/etCardExpires"
+        app:layout_constraintTop_toBottomOf="@+id/etCardExpires">
+
+        <RadioButton
+            android:id="@+id/radioMasterCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:checked="true"
+            android:text="@string/mastercard" />
+
+        <RadioButton
+            android:id="@+id/radioVisa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/visa" />
+
+
+    </RadioGroup>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAddCard"
+        android:layout_width="203dp"
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_rectangle"
+        android:backgroundTint="@color/dark_gray"
+        android:text="@string/add_card"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paymentOptions" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

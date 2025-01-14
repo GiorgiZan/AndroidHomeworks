@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/paymentFragment">
+
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.androidhomeworks.fragments.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" >
+        <action
+            android:id="@+id/action_paymentFragment_to_addNewCardFragment"
+            app:destination="@id/addNewCardFragment" />
+        <action
+            android:id="@+id/action_paymentFragment_to_bottomConfirmationSheet"
+            app:destination="@id/bottomConfirmationSheet" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewCardFragment"
+        android:name="com.example.androidhomeworks.fragments.AddNewCardFragment"
+        android:label="fragment_add_new_card"
+        tools:layout="@layout/fragment_add_new_card" >
+        <action
+            android:id="@+id/action_addNewCardFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/bottomConfirmationSheet"
+        android:name="com.example.androidhomeworks.fragments.BottomConfirmationSheet"
+        android:label="BottomConfirmationSheet" >
+        <argument
+            android:name="cardID"
+            app:argType="java.util.UUID" />
+    </dialog>
+</navigation>
