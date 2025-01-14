@@ -1,5 +1,6 @@
 package com.example.androidhomeworks.fragments
 
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.androidhomeworks.R
@@ -15,6 +16,7 @@ class AddNewCardFragment : BaseFragment<FragmentAddNewCardBinding>(FragmentAddNe
 
 
     override fun setUp() {
+        realTimeChange()
     }
 
     override fun listeners() {
@@ -84,6 +86,19 @@ class AddNewCardFragment : BaseFragment<FragmentAddNewCardBinding>(FragmentAddNe
         )
         cardViewModel.addCard(card)
 
+    }
+
+    private fun realTimeChange(){
+        binding.etCardNumber.addTextChangedListener{
+            val formattedCardNo = it.toString().chunked(4).joinToString("   ")
+            binding.tvCardNumbers.text = formattedCardNo
+        }
+        binding.etCardName.addTextChangedListener {
+            binding.tvCardHolderNameOnCard.text = it.toString()
+        }
+        binding.etCardExpires.addTextChangedListener {
+            binding.tvCardExpirationDateOnCard.text = it.toString()
+        }
     }
 
 

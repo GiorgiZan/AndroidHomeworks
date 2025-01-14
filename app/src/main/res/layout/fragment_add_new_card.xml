@@ -53,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:letterSpacing="0.2"
+        android:letterSpacing="0.09"
         android:text="@string/default_card_num"
         android:textColor="@color/white"
         android:textSize="25sp"
@@ -88,6 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvCardNumbers" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCardHolderNameOnCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -98,6 +99,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvCardHolderName" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCardExpirationDateOnCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
