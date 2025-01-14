@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="cardholder_name">Cardholder Name</string>
+    <string name="valid_thru">VALID THRU</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="payment">Payment</string>
+    <string name="card_management">Card Management</string>
+    <string name="add_new">Add new+</string>
+    <string name="or_check_out_with">or check out with</string>
+    <string name="add_new_card">Add new card</string>
+    <string name="mm_yy">MM/YY</string>
+    <string name="name">Name</string>
+    <string name="default_card_num">**** **** **** ****</string>
+    <string name="enter_name_hint">Enter name</string>
+    <string name="card_number">Card Number</string>
+    <string name="enter_card_number">Enter Card Number</string>
+    <string name="expires">Expires</string>
+    <string name="cvv">CVV</string>
+    <string name="enter_date">MM/YY</string>
+    <string name="enter_cvv">Enter CVV</string>
+    <string name="visa">Visa</string>
+    <string name="mastercard">MasterCard</string>
+    <string name="add_card">Add card</string>
+    <string name="card_name_should_not_be_empty">Card name should not be empty!</string>
+    <string name="card_number_should_not_be_empty">Card Number should not be empty!</string>
+    <string name="card_number_should_contain_16_numbers">Card Number should contain 16 numbers!</string>
+    <string name="expiration_date_should_not_be_empty">Expiration date should not be empty!</string>
+    <string name="card_cvv_should_not_be_empty">Card CVV should not be empty!</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="are_you_sure_you_want_to_delete_the_selected_card">Are you sure you want to delete the selected card?</string>
 </resources>
