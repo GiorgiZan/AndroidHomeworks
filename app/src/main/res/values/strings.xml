@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="select_date">Select Date</string>
+    <string name="e_auth">E AUTH</string>
+    <string name="register">Register</string>
 </resources>

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.safeargs)
+    alias(libs.plugins.serialization)
 }
 
 android {
@@ -51,5 +52,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
+    implementation(libs.kotlin.serialization)
+    implementation(libs.picasso)
 
 }
