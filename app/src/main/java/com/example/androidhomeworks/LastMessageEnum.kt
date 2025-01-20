@@ -1,6 +1,6 @@
 package com.example.androidhomeworks
 
-enum class LastMessageEnum(val type:String) {
+enum class LastMessageEnum(val type: String) {
     TEXT("text"),
     FILE("file"),
     VOICE("voice");

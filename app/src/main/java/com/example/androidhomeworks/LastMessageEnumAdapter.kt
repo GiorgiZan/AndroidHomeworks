@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonWriter
 import com.squareup.moshi.ToJson
 
-class LastMessageEnumAdapter  {
+class LastMessageEnumAdapter {
 
     @FromJson
     fun fromJson(reader: JsonReader): LastMessageEnum {

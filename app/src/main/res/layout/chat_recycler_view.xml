@@ -6,7 +6,6 @@
     android:paddingBottom="20dp">
 
 
-
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivPersonIcon"
         android:layout_width="60dp"
@@ -34,8 +33,8 @@
     <android.widget.HorizontalScrollView
         android:id="@+id/tvPersonAction"
         android:layout_width="0dp"
-        android:layout_marginEnd="10dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/ivPersonIcon"
         app:layout_constraintEnd_toStartOf="@+id/tvNumberOfMessages"
         app:layout_constraintStart_toEndOf="@+id/tvActionIcon">
@@ -46,12 +45,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginBottom="8dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="0dp"
             android:textColor="@color/gray"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/ivPersonIcon"
             app:layout_constraintStart_toEndOf="@+id/tvActionIcon" />
     </android.widget.HorizontalScrollView>
-
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -73,8 +73,8 @@
         android:background="@drawable/circle"
         android:backgroundTint="@color/light_green"
         android:gravity="center"
-        android:visibility="gone"
         android:textColor="@color/white"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/tvPersonTime"
         app:layout_constraintTop_toBottomOf="@+id/tvPersonTime" />
 
@@ -102,7 +102,6 @@
         app:layout_constraintEnd_toStartOf="@+id/tvPersonAction"
         app:layout_constraintStart_toEndOf="@+id/ivPersonIcon"
         app:layout_constraintTop_toTopOf="@+id/tvPersonAction" />
-
 
 
     <View

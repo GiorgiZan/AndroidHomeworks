@@ -9,7 +9,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     private val chatAdapter by lazy {
         ChatAdapter()
     }
-    private val chatViewModel:MyViewModel by viewModels()
+    private val chatViewModel: MyViewModel by viewModels()
 
     override fun setUp() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
@@ -23,6 +23,12 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     override fun listeners() {
         binding.btnFilter.setOnClickListener {
             val nameToFilter = binding.tvFilterField.text.toString()
+            if (nameToFilter.isEmpty()){
+                chatViewModel.loadChatList()
+                chatViewModel.getChatList()?.let { chatList ->
+                    chatAdapter.submitList(chatList)
+                }
+            }
             val filteredList = chatViewModel.filterChatsByName(nameToFilter)
             chatAdapter.submitList(filteredList)
         }
