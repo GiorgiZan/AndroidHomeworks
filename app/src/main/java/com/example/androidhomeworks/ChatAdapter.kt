@@ -49,13 +49,13 @@ class ChatAdapter : ListAdapter<ChatDto, ChatAdapter.ChatViewHolder>(ChatDiffUti
                         .into(this)
 
                     tvPersonName.text = chat.owner
-                    if (chat.lastMessageType == "text"){
+                    if (chat.lastMessageType == LastMessageEnum.TEXT){
                         tvActionIcon.visibility = View.GONE
                     }
-                    else if (chat.lastMessageType == "file"){
+                    else if (chat.lastMessageType == LastMessageEnum.FILE){
                         tvActionIcon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.attach, 0, 0, 0)
                     }
-                    else if (chat.lastMessageType == "voice"){
+                    else if (chat.lastMessageType == LastMessageEnum.VOICE){
                         tvActionIcon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.audio_icon, 0, 0, 0)
                     }
                     tvPersonActionText.text = chat.lastMessage

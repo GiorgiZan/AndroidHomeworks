@@ -8,7 +8,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 class MyViewModel : ViewModel() {
 
-    private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    private val moshi = Moshi.Builder().add(LastMessageEnumAdapter()).add(KotlinJsonAdapterFactory()).build()
     private val jsonAdapter: JsonAdapter<List<ChatDto>> =
         moshi.adapter(Types.newParameterizedType(List::class.java, ChatDto::class.java))
 

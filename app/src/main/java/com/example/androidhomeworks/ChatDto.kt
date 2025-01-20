@@ -17,6 +17,6 @@ data class ChatDto(
     @Json(name = "is_typing")
     val isTyping: Boolean,
     @Json(name = "laste_message_type")
-    val lastMessageType: String
+    val lastMessageType: LastMessageEnum
 ) {
 }
