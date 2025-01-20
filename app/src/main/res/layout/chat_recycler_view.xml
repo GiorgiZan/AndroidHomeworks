@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="20dp">
@@ -26,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
-        android:text="Alice Smith"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/ivPersonIcon"
@@ -48,7 +46,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginBottom="8dp"
-            android:text="Great. I will have a look"
             android:textColor="@color/gray"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/ivPersonIcon"
@@ -63,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="90dp"
         android:layout_marginEnd="25dp"
-        android:text="4:40pm"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvPersonName" />
 
@@ -76,7 +73,7 @@
         android:background="@drawable/circle"
         android:backgroundTint="@color/light_green"
         android:gravity="center"
-        android:text="3"
+        android:visibility="gone"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/tvPersonTime"
         app:layout_constraintTop_toBottomOf="@+id/tvPersonTime" />
@@ -87,6 +84,7 @@
         android:layout_height="20dp"
         android:layout_marginTop="6dp"
         android:src="@drawable/typing"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/tvPersonTime"
         app:layout_constraintStart_toEndOf="@+id/tvNumberOfMessages"
         app:layout_constraintTop_toBottomOf="@+id/tvPersonTime" />
@@ -99,7 +97,6 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/circle"
         android:backgroundTint="@color/grayish_white"
-        android:drawableStart="@drawable/audio_icon"
         android:padding="6.5dp"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/tvPersonAction"
@@ -110,7 +107,8 @@
 
     <View
         android:layout_width="0dp"
-        android:layout_height="0.5dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
         android:background="@color/line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivPersonIcon"

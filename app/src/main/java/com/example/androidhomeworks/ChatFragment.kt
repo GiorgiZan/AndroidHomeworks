@@ -14,6 +14,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
     override fun setUp() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = chatAdapter
+        chatViewModel.loadChatList()
         chatViewModel.getChatList()?.let { chatList ->
             chatAdapter.submitList(chatList)
         }

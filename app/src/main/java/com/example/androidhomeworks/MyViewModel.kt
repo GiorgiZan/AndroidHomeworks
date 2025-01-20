@@ -59,8 +59,12 @@ class MyViewModel : ViewModel() {
         ]
     """
 
+    fun loadChatList() {
+        chatList = jsonAdapter.fromJson(json)
+    }
+
     fun getChatList(): List<ChatDto>? {
-        return jsonAdapter.fromJson(json)
+        return chatList
     }
 
     fun filterChatsByName(name: String): List<ChatDto> {

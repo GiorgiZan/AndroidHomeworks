@@ -53,14 +53,14 @@ class ChatAdapter : ListAdapter<ChatDto, ChatAdapter.ChatViewHolder>(ChatDiffUti
                         tvActionIcon.visibility = View.GONE
                     }
                     else if (chat.lastMessageType == "file"){
-                        tvActionIcon.setBackgroundResource(R.drawable.attach)
+                        tvActionIcon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.attach, 0, 0, 0)
                     }
                     else if (chat.lastMessageType == "voice"){
-                        tvActionIcon.setBackgroundResource(R.drawable.audio_icon)
+                        tvActionIcon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.audio_icon, 0, 0, 0)
                     }
                     tvPersonActionText.text = chat.lastMessage
                     tvPersonTime.text = chat.lastActive
-                    if (chat.isTyping== true){
+                    if (chat.isTyping){
                         tvTyping.visibility = View.VISIBLE
                     }
                     if (chat.unreadMessages > 0){
