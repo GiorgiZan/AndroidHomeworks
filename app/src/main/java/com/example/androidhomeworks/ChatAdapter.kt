@@ -57,6 +57,7 @@ class ChatAdapter : ListAdapter<ChatDto, ChatAdapter.ChatViewHolder>(ChatDiffUti
                     if (chat.lastMessageType == LastMessageEnum.TEXT) {
                         tvActionIcon.visibility = View.GONE
                     } else if (chat.lastMessageType == LastMessageEnum.FILE) {
+                        tvActionIcon.visibility = View.VISIBLE
                         tvActionIcon.setCompoundDrawablesWithIntrinsicBounds(
                             R.drawable.attach,
                             0,
@@ -64,6 +65,7 @@ class ChatAdapter : ListAdapter<ChatDto, ChatAdapter.ChatViewHolder>(ChatDiffUti
                             0
                         )
                     } else if (chat.lastMessageType == LastMessageEnum.VOICE) {
+                        tvActionIcon.visibility = View.VISIBLE
                         tvActionIcon.setCompoundDrawablesWithIntrinsicBounds(
                             R.drawable.audio_icon,
                             0,
