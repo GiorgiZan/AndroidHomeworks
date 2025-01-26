@@ -1,42 +1,54 @@
 package com.example.androidhomeworks.fragments
 
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.androidhomeworks.R
 import com.example.androidhomeworks.databinding.FragmentLoginBinding
+import com.example.androidhomeworks.datastore.MyDataStore
 import com.example.androidhomeworks.models.LoginViewModel
+import com.example.androidhomeworks.models.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
-    private val loginViewModel: LoginViewModel by viewModels()
-    private lateinit var sharedPreferences: SharedPreferences
+    private val myDataStore by lazy { MyDataStore(requireContext()) }
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        loggedInNavigateToHome()
+    private val loginViewModel: LoginViewModel by viewModels {
+        ViewModelFactory { LoginViewModel(myDataStore) }
     }
 
-    private fun loggedInNavigateToHome() {
-        sharedPreferences =
-            requireContext().getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
 
-        if (sharedPreferences.getBoolean("isLoggedIn", false)) {
-            navigateToHome()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        checkLoggedInUser()
+    }
+
+    private fun checkLoggedInUser() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                myDataStore.email.collectLatest { email ->
+                    if (!email.isNullOrEmpty()) {
+                        navigateToHome()
+                    }
+                }
+            }
         }
-
     }
 
 
     override fun listeners() {
         loadEmailAndPasswordFromRegistration()
+        loginStateManagement()
+
         binding.btnLogin.setOnClickListener {
             if (!validateFields()) {
                 return@setOnClickListener
@@ -49,32 +61,39 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
     }
 
+    private fun loginStateManagement() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                loginViewModel.stateManagement.collectLatest { state ->
+                    if (state.isLoading) {
+                        loading()
+                    } else {
+                        loaded()
+                    }
+
+                    state.successMessage?.let {
+                        Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
+                        myDataStore.email.collectLatest { email ->
+                            if (email.isNullOrEmpty()) {
+                                navigateToHome()
+                            }
+                        }
+                    }
+
+                    state.errorMessage?.let {
+                        Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
+    }
+
     private fun loginViaService() {
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
         val rememberMe = binding.cbRememberMe.isChecked
 
-        loading()
-
-        loginViewModel.login(email, password,
-            onSuccess = {
-                loaded()
-                if (rememberMe) {
-                    sharedPreferences.edit()
-                        .putBoolean("isLoggedIn", true)
-                        .apply()
-                }
-                sharedPreferences.edit()
-                    .putString("email", email)
-                    .apply()
-                Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
-                navigateToHome()
-            },
-            onError = {
-                loaded()
-                Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
-            }
-        )
+        loginViewModel.login(email, password, rememberMe)
     }
 
 

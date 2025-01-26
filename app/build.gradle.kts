@@ -58,5 +58,6 @@ dependencies {
     implementation(libs.kotlin.serialization)
     implementation(libs.kotlinx.serialization.converter)
     implementation(libs.okhttp)
+    implementation(libs.datastore.preferences)
 
 }

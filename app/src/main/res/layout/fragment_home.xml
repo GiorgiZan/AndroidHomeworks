@@ -14,11 +14,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="30dp"
         android:text="@string/home"
         android:textColor="@color/black"
         android:textSize="48sp"
@@ -27,46 +28,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvWelcomeBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
-        android:text="@string/welcome_back"
-        android:textSize="39sp"
-        app:layout_constraintEnd_toEndOf="@+id/tvHome"
-        app:layout_constraintStart_toStartOf="@+id/tvHome"
-        app:layout_constraintTop_toBottomOf="@+id/tvHome" />
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvWelcomeBack" />
-
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogOut"
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/rounded_rectangle"
-        android:backgroundTint="@color/purple"
-        android:text="@string/log_out"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+        android:layout_marginEnd="25dp"
+        android:src="@drawable/profile"
+        app:layout_constraintBottom_toBottomOf="@+id/tvHome"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvHome" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/tvHome" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="wrap_content"
@@ -74,4 +54,19 @@
         android:src="@drawable/circle_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/loading"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,4 +16,5 @@
     <string name="log_out">Log out</string>
     <string name="repeat_password">Repeat password</string>
     <string name="passwords_should_be_equal">Passwords should be equal!</string>
+    <string name="profile">Profile</string>
 </resources>
