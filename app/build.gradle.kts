@@ -59,5 +59,6 @@ dependencies {
     implementation(libs.kotlinx.serialization.converter)
     implementation(libs.okhttp)
     implementation(libs.datastore.preferences)
+    implementation(libs.paging.runtime)
 
 }

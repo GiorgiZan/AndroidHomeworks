@@ -7,6 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidhomeworks.adapters.UserAdapter
 import com.example.androidhomeworks.databinding.FragmentHomeBinding
@@ -15,6 +16,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+
+
     private val userAdapter by lazy {
         UserAdapter()
     }
@@ -24,37 +27,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         binding.ivProfile.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
         }
-
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeViewModel.getUsers()
+
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = userAdapter
-        homeStateManagement()
+
+        stateManagement()
         submitUsers()
     }
 
-    private fun submitUsers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeViewModel.usersList.collectLatest { users ->
-                    userAdapter.submitList(users)
-                }
+    private fun stateManagement() {
+        userAdapter.addLoadStateListener { loadState ->
+            if (loadState.refresh is LoadState.Loading || loadState.append is LoadState.Loading){
+                loading()
+            } else {
+                loaded()
             }
         }
     }
 
-    private fun homeStateManagement() {
+
+    private fun submitUsers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeViewModel.stateManagement.collectLatest { state ->
-                    if (state.isLoading) {
-                        loading()
-                    } else {
-                        loaded()
-                    }
+                homeViewModel.usersFlow.collectLatest { pagingData ->
+                    userAdapter.submitData(pagingData)
                 }
             }
         }
@@ -64,7 +65,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private fun loading() {
         binding.loading.visibility = View.VISIBLE
         binding.ivProfile.isEnabled = false
-
     }
 
     private fun loaded() {

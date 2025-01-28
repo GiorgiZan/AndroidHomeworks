@@ -18,6 +18,7 @@ kotlinxSerializationJsonVer = "1.6.0"
 kotlinxSerializationConverterVer = "0.8.0"
 okhttpVer = "4.9.3"
 datastoreVer = "1.1.2"
+pagingVer = "3.1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -37,7 +38,7 @@ kotlin-serialization = {group = "org.jetbrains.kotlinx", name = "kotlinx-seriali
 kotlinx-serialization-converter = {group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "kotlinxSerializationConverterVer"}
 okhttp = {group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttpVer"}
 datastore-preferences = {group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastoreVer"}
-
+paging-runtime = {group = "androidx.paging", name = "paging-runtime", version.ref = "pagingVer"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -9,6 +9,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface RetrofitService {
     @POST("login")
@@ -17,7 +18,7 @@ interface RetrofitService {
     @POST("register")
     suspend fun register(@Body request: RegisterDto): Response<RegisterResponseDto>
 
-    @GET("users?page=1")
-    suspend fun getUsers(): Response<UsersDto>
+    @GET("users")
+    suspend fun getUsers(@Query("page") page: Int): Response<UsersDto>
 
 }

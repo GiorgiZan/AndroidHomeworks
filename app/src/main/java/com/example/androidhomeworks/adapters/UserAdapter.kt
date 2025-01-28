@@ -2,8 +2,8 @@ package com.example.androidhomeworks.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidhomeworks.R
@@ -20,7 +20,7 @@ class UserDiffUtil : DiffUtil.ItemCallback<UsersDto.User>() {
     }
 }
 
-class UserAdapter : ListAdapter<UsersDto.User, UserAdapter.UserViewHolder>(UserDiffUtil()) {
+class UserAdapter : PagingDataAdapter<UsersDto.User, UserAdapter.UserViewHolder>(UserDiffUtil()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -30,14 +30,15 @@ class UserAdapter : ListAdapter<UsersDto.User, UserAdapter.UserViewHolder>(UserD
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.onBind()
+        val user = getItem(position)
+        if (user != null) {
+            holder.onBind(user)
+        }
     }
 
     inner class UserViewHolder(private val binding: UserRecyclerViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind() {
-
-            val user = getItem(adapterPosition)
+        fun onBind(user: UsersDto.User) {
             with(binding) {
                 ivUserPicture.apply {
                     Glide.with(context)
