@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="enter_first_name">Enter First Name</string>
+    <string name="enter_last_name">Enter Last Name</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="save">Save</string>
+    <string name="read">Read</string>
+    <string name="email_should_not_be_empty">Email should not be empty!</string>
+    <string name="firstname_should_not_be_empty">First name should not be empty!</string>
+    <string name="lastname_should_not_be_empty">Last name should not be empty!</string>
+    <string name="enter_valid_email">Enter Valid Email!</string>
+    <string name="user_saved">User Saved</string>
 </resources>

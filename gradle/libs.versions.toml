@@ -10,6 +10,7 @@ material = "1.12.0"
 activity = "1.10.0"
 constraintlayout = "2.2.0"
 navigationFragment = "2.8.5"
+protobufJavalite = "3.21.12"
 safeArgsVer = "2.8.5"
 retrofitVer = "2.9.0"
 glideVer = "4.15.1"
@@ -19,9 +20,12 @@ kotlinxSerializationConverterVer = "0.8.0"
 okhttpVer = "4.9.3"
 datastoreVer = "1.1.2"
 pagingVer = "3.1.1"
+protobufVer = "0.9.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastoreVer" }
+androidx-datastore-core = { module = "androidx.datastore:datastore-core", version.ref = "datastoreVer" }
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigationFragment" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationFragment" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -31,6 +35,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+protobuf-javalite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobufJavalite" }
 retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVer"}
 converter-gson = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitVer"}
 glide = {group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVer"}
@@ -46,3 +51,4 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 safeargs = {id = "androidx.navigation.safeargs.kotlin", version.ref =  "safeArgsVer"}
 serialization = {id = "org.jetbrains.kotlin.plugin.serialization", version.ref ="serializationVer" }
+protobuf = {id = "com.google.protobuf", version.ref = "protobufVer"}

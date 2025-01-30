@@ -5,3 +5,8 @@ plugins {
     alias(libs.plugins.safeargs) apply false
 }
 
+buildscript {
+    repositories {
+        google()
+    }
+}
