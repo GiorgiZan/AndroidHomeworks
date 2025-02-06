@@ -1,4 +1,4 @@
-package com.example.androidhomeworks
+package com.example.androidhomeworks.presentation.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,11 +26,13 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflater: (LayoutInfla
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUp()
+        listeners()
     }
 
 
     abstract fun setUp()
 
+    abstract fun listeners()
 
     override fun onDestroyView() {
         super.onDestroyView()

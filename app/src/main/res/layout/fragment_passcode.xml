@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".presentation.passcode.PasscodeFragment">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/security_screen"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEnterYourCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="65dp"
+        android:text="@string/enter_your_passcode"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/appCompatTextView"
+        app:layout_constraintStart_toStartOf="@+id/appCompatTextView"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/circle1"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/circle"
+        app:layout_constraintEnd_toStartOf="@+id/tvEnterYourCode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEnterYourCode" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/circle2"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="46dp"
+        android:src="@drawable/circle"
+        app:layout_constraintStart_toEndOf="@+id/circle1"
+        app:layout_constraintTop_toTopOf="@+id/circle1" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/circle3"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="46dp"
+        android:src="@drawable/circle"
+        app:layout_constraintStart_toEndOf="@+id/circle2"
+        app:layout_constraintTop_toTopOf="@+id/circle2" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/circle4"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="46dp"
+        android:src="@drawable/circle"
+        app:layout_constraintStart_toEndOf="@+id/circle3"
+        app:layout_constraintTop_toTopOf="@+id/circle3" />
+
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:columnCount="3"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:rowCount="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/circle2">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnOne"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/white"
+            android:text="@string/_1"
+            android:textSize="32sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnTwo"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="43dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@android:color/white"
+            android:text="@string/_2"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnThree"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="43dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@android:color/white"
+            android:text="@string/_3"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnFour"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@android:color/white"
+            android:text="@string/_4"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnFive"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@android:color/white"
+            android:text="@string/_5"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSix"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@android:color/white"
+            android:text="@string/_6"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSeven"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@android:color/white"
+            android:text="@string/_7"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnEight"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@android:color/white"
+            android:text="@string/_8"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNine"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@android:color/white"
+            android:text="@string/_9"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnFingerprint"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@android:color/white"
+            android:elevation="2dp"
+            android:src="@drawable/finger_print"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnZero"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@android:color/white"
+            android:text="@string/_0"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@android:color/white"
+            android:elevation="2dp"
+            android:src="@drawable/backspace"
+            android:textSize="24sp" />
+    </GridLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="@string/forgot_password"
+        android:textColor="@color/dark_gray"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
