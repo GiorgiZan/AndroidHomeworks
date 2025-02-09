@@ -2,12 +2,12 @@ package com.example.androidhomeworks.adapters
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.androidhomeworks.dto_response.UsersDto
+import com.example.androidhomeworks.data.remote.users.UsersResponseDto
 import com.example.androidhomeworks.retrofit.RetrofitService
 
 class UserPagingSource(private val retrofitService: RetrofitService) :
-    PagingSource<Int, UsersDto.User>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UsersDto.User> {
+    PagingSource<Int, UsersResponseDto.User>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UsersResponseDto.User> {
         val page = params.key ?: 1
         return try {
             val response = retrofitService.getUsers(page)
@@ -22,7 +22,7 @@ class UserPagingSource(private val retrofitService: RetrofitService) :
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, UsersDto.User>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, UsersResponseDto.User>): Int? {
         return state.anchorPosition?.let {
             state.closestPageToPosition(it)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(it)?.nextKey?.minus(1)

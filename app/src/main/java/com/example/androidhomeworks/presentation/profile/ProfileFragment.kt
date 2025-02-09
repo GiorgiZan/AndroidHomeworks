@@ -1,4 +1,4 @@
-package com.example.androidhomeworks.fragments
+package com.example.androidhomeworks.presentation.profile
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -8,9 +8,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.androidhomeworks.R
 import com.example.androidhomeworks.databinding.FragmentProfileBinding
-import com.example.androidhomeworks.datastore.MyDataStore
-import com.example.androidhomeworks.models.ProfileViewModel
-import com.example.androidhomeworks.models.ViewModelFactory
+import com.example.androidhomeworks.data.local.MyDataStore
+import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
+import com.example.androidhomeworks.presentation.view_model_factory.ViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

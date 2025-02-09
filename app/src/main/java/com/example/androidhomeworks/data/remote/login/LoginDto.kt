@@ -1,4 +1,4 @@
-package com.example.androidhomeworks.dto_response
+package com.example.androidhomeworks.data.remote.login
 
 import kotlinx.serialization.Serializable
 

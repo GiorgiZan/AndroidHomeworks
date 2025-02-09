@@ -8,19 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidhomeworks.R
 import com.example.androidhomeworks.databinding.UserRecyclerViewBinding
-import com.example.androidhomeworks.dto_response.UsersDto
+import com.example.androidhomeworks.data.remote.users.UsersResponseDto
 
-class UserDiffUtil : DiffUtil.ItemCallback<UsersDto.User>() {
-    override fun areItemsTheSame(oldItem: UsersDto.User, newItem: UsersDto.User): Boolean {
+class UserDiffUtil : DiffUtil.ItemCallback<UsersResponseDto.User>() {
+    override fun areItemsTheSame(oldItem: UsersResponseDto.User, newItem: UsersResponseDto.User): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: UsersDto.User, newItem: UsersDto.User): Boolean {
+    override fun areContentsTheSame(oldItem: UsersResponseDto.User, newItem: UsersResponseDto.User): Boolean {
         return oldItem == newItem
     }
 }
 
-class UserAdapter : PagingDataAdapter<UsersDto.User, UserAdapter.UserViewHolder>(UserDiffUtil()) {
+class UserAdapter : PagingDataAdapter<UsersResponseDto.User, UserAdapter.UserViewHolder>(UserDiffUtil()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -38,7 +38,7 @@ class UserAdapter : PagingDataAdapter<UsersDto.User, UserAdapter.UserViewHolder>
 
     inner class UserViewHolder(private val binding: UserRecyclerViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(user: UsersDto.User) {
+        fun onBind(user: UsersResponseDto.User) {
             with(binding) {
                 ivUserPicture.apply {
                     Glide.with(context)

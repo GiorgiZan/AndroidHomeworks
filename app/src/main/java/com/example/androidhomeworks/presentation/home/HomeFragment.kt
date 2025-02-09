@@ -1,4 +1,4 @@
-package com.example.androidhomeworks.fragments
+package com.example.androidhomeworks.presentation.home
 
 import android.os.Bundle
 import android.view.View
@@ -9,9 +9,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.androidhomeworks.R
 import com.example.androidhomeworks.adapters.UserAdapter
 import com.example.androidhomeworks.databinding.FragmentHomeBinding
-import com.example.androidhomeworks.models.HomeViewModel
+import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -44,7 +46,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         userAdapter.addLoadStateListener { loadState ->
             if (loadState.refresh is LoadState.Loading || loadState.append is LoadState.Loading){
                 loading()
-            } else {
+            }
+            else if (loadState.refresh is LoadState.Error){
+                Snackbar.make(binding.root,
+                    getString(R.string.failed_to_load_users), Snackbar.LENGTH_SHORT).show()
+                loaded()
+        }
+            else {
                 loaded()
             }
         }

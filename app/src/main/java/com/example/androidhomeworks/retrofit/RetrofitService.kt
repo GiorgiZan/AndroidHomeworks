@@ -1,10 +1,10 @@
 package com.example.androidhomeworks.retrofit
 
-import com.example.androidhomeworks.dto_response.LoginDto
-import com.example.androidhomeworks.dto_response.LoginResponseDto
-import com.example.androidhomeworks.dto_response.RegisterDto
-import com.example.androidhomeworks.dto_response.RegisterResponseDto
-import com.example.androidhomeworks.dto_response.UsersDto
+import com.example.androidhomeworks.data.remote.login.LoginDto
+import com.example.androidhomeworks.data.remote.login.LoginResponseDto
+import com.example.androidhomeworks.data.remote.register.RegisterDto
+import com.example.androidhomeworks.data.remote.register.RegisterResponseDto
+import com.example.androidhomeworks.data.remote.users.UsersResponseDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -19,6 +19,6 @@ interface RetrofitService {
     suspend fun register(@Body request: RegisterDto): Response<RegisterResponseDto>
 
     @GET("users")
-    suspend fun getUsers(@Query("page") page: Int): Response<UsersDto>
+    suspend fun getUsers(@Query("page") page: Int): Response<UsersResponseDto>
 
 }

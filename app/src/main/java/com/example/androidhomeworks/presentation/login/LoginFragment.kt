@@ -1,4 +1,4 @@
-package com.example.androidhomeworks.fragments
+package com.example.androidhomeworks.presentation.login
 
 
 import android.os.Bundle
@@ -10,10 +10,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.androidhomeworks.R
+import com.example.androidhomeworks.common.Resource
 import com.example.androidhomeworks.databinding.FragmentLoginBinding
-import com.example.androidhomeworks.datastore.MyDataStore
-import com.example.androidhomeworks.models.LoginViewModel
-import com.example.androidhomeworks.models.ViewModelFactory
+import com.example.androidhomeworks.data.local.MyDataStore
+import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
+import com.example.androidhomeworks.presentation.view_model_factory.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -21,6 +22,7 @@ import kotlinx.coroutines.launch
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     private val myDataStore by lazy { MyDataStore(requireContext()) }
+    private var hasNavigatedToHome = false
 
     private val loginViewModel: LoginViewModel by viewModels {
         ViewModelFactory { LoginViewModel(myDataStore) }
@@ -47,7 +49,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     override fun listeners() {
         loadEmailAndPasswordFromRegistration()
-        loginStateManagement()
 
         binding.btnLogin.setOnClickListener {
             if (!validateFields()) {
@@ -64,24 +65,31 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private fun loginStateManagement() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loginViewModel.stateManagement.collectLatest { state ->
-                    if (state.isLoading) {
-                        loading()
-                    } else {
-                        loaded()
-                    }
-
-                    state.successMessage?.let {
-                        Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
-                        myDataStore.email.collectLatest { email ->
-                            if (email.isNullOrEmpty()) {
-                                navigateToHome()
-                            }
+                loginViewModel.loginState.collectLatest { state ->
+                    when (state) {
+                        is Resource.Loading -> {
+                            loading()
                         }
-                    }
 
-                    state.errorMessage?.let {
-                        Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
+                        is Resource.Success -> {
+                            if (!hasNavigatedToHome){
+                                hasNavigatedToHome = true
+                                loaded()
+                                Snackbar.make(binding.root, "Login Successful", Snackbar.LENGTH_LONG).show()
+                                myDataStore.email.collectLatest { email ->
+                                    if (email.isNullOrEmpty()) {
+                                        navigateToHome()
+                                    }
+                                }
+                            }
+
+                        }
+
+                        is Resource.Error -> {
+                            loaded()
+                            Snackbar.make(binding.root, state.errorMessage, Snackbar.LENGTH_LONG)
+                                .show()
+                        }
                     }
                 }
             }
@@ -94,6 +102,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         val rememberMe = binding.cbRememberMe.isChecked
 
         loginViewModel.login(email, password, rememberMe)
+        loginStateManagement()
     }
 
 

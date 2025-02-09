@@ -1,8 +1,8 @@
-package com.example.androidhomeworks.models
+package com.example.androidhomeworks.presentation.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidhomeworks.datastore.MyDataStore
+import com.example.androidhomeworks.data.local.MyDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 

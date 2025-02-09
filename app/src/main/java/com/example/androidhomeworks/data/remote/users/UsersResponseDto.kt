@@ -1,10 +1,10 @@
-package com.example.androidhomeworks.dto_response
+package com.example.androidhomeworks.data.remote.users
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UsersDto(
+data class UsersResponseDto(
     val page: Int,
     @SerialName("per_page")
     val perPage: Int,

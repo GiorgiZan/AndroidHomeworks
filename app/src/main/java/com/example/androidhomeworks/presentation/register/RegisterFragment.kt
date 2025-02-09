@@ -1,4 +1,4 @@
-package com.example.androidhomeworks.fragments
+package com.example.androidhomeworks.presentation.register
 
 import android.os.Bundle
 import android.view.View
@@ -10,8 +10,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.androidhomeworks.R
+import com.example.androidhomeworks.common.Resource
 import com.example.androidhomeworks.databinding.FragmentRegisterBinding
-import com.example.androidhomeworks.models.RegisterViewModel
+import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -19,10 +20,9 @@ import kotlinx.coroutines.launch
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
 
     private val registerViewModel: RegisterViewModel by viewModels()
-
+    private var hasNavigatedToLogin = false
 
     override fun listeners() {
-        registerStateManagement()
 
         binding.btnRegister.setOnClickListener {
             if (!validateFields()) {
@@ -36,43 +36,49 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         }
     }
 
-    private fun registerStateManagement() {
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                registerViewModel.stateManagement.collectLatest { state ->
-                    if (state.isLoading) {
-                        loading()
-                    } else {
-                        loaded()
-                    }
-
-                    state.successMessage?.let {
-                        val result = Bundle().apply {
-                            loaded()
-                            putString("email", binding.etEmail.text.toString())
-                            putString("password", binding.etPassword.text.toString())
-                        }
-                        setFragmentResult("requestKey", result)
-                        Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
-                        navigateToLogin()
-                    }
-
-                    state.errorMessage?.let {
-                        Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
-                    }
-                }
-            }
-        }
-    }
-
-
     private fun registerViaService() {
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
 
         registerViewModel.register(email, password)
+        registerStateManagement()
 
+    }
+
+    private fun registerStateManagement() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                registerViewModel.registerState.collectLatest { state ->
+                    when (state) {
+                        is Resource.Loading -> {
+                            loading()
+                        }
+
+                        is Resource.Success -> {
+                            if (!hasNavigatedToLogin) {
+                                hasNavigatedToLogin = true
+                                loaded()
+                                val result = Bundle().apply {
+                                    putString("email", binding.etEmail.text.toString())
+                                    putString("password", binding.etPassword.text.toString())
+                                }
+                                setFragmentResult("requestKey", result)
+
+                                Snackbar.make(binding.root, "Register Successful", Snackbar.LENGTH_LONG)
+                                    .show()
+                                navigateToLogin()
+                            }
+                        }
+
+                        is Resource.Error -> {
+                            loaded()
+                            Snackbar.make(binding.root, state.errorMessage, Snackbar.LENGTH_LONG)
+                                .show()
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
