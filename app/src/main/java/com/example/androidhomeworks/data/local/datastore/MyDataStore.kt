@@ -1,4 +1,4 @@
-package com.example.androidhomeworks.data.local
+package com.example.androidhomeworks.data.local.datastore
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit

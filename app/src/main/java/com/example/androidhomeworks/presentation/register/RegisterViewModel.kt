@@ -1,5 +1,6 @@
 package com.example.androidhomeworks.presentation.register
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidhomeworks.common.ApiHelper
@@ -16,10 +17,10 @@ class RegisterViewModel : ViewModel() {
     val registerState: StateFlow<Resource<Unit>> = _registerState
 
 
-    fun register(email: String, password: String) {
+    fun register(context: Context, email: String, password: String) {
         _registerState.value = Resource.Loading
         viewModelScope.launch {
-            val result = ApiHelper.handleHttpRequest(apiCall = {
+            val result = ApiHelper.handleHttpRequest(context = context, apiCall = {
                 RetrofitClient.retrofitService.register(RegisterDto(email, password))
             })
             when (result) {

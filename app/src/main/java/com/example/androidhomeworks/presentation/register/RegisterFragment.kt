@@ -40,7 +40,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
 
-        registerViewModel.register(email, password)
+        registerViewModel.register(requireContext(), email, password)
         registerStateManagement()
 
     }

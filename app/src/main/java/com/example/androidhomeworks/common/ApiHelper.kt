@@ -1,11 +1,19 @@
 package com.example.androidhomeworks.common
 
+
+import android.content.Context
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
 object ApiHelper {
-    suspend fun <T> handleHttpRequest(apiCall: suspend () -> Response<T>): Resource<T> {
+
+
+    suspend fun <T> handleHttpRequest(context: Context, apiCall: suspend () -> Response<T>): Resource<T> {
+        if (!NetworkHelper.isNetworkAvailable(context)) {
+            return Resource.Error(errorMessage = "No internet connection")
+        }
+
         val response = apiCall.invoke()
         return try {
             if (response.isSuccessful) {

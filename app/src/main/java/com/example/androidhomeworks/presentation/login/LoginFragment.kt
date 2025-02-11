@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.androidhomeworks.R
 import com.example.androidhomeworks.common.Resource
 import com.example.androidhomeworks.databinding.FragmentLoginBinding
-import com.example.androidhomeworks.data.local.MyDataStore
+import com.example.androidhomeworks.data.local.datastore.MyDataStore
 import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
 import com.example.androidhomeworks.presentation.view_model_factory.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -101,7 +101,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         val password = binding.etPassword.text.toString()
         val rememberMe = binding.cbRememberMe.isChecked
 
-        loginViewModel.login(email, password, rememberMe)
+        loginViewModel.login(requireContext(), email, password, rememberMe)
         loginStateManagement()
     }
 

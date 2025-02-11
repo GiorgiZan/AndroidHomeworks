@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.safeargs)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.devtools.ksp)
 }
 
 android {
@@ -60,5 +61,10 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.datastore.preferences)
     implementation(libs.paging.runtime)
+
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.paging)
 
 }

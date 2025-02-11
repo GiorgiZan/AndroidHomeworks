@@ -11,7 +11,7 @@ class UserPagingSource(private val retrofitService: RetrofitService) :
         val page = params.key ?: 1
         return try {
             val response = retrofitService.getUsers(page)
-            val users = response.body()?.data ?: emptyList()
+            val users = response.data
             LoadResult.Page(
                 data = users,
                 prevKey = if (page == 1) null else page - 1,

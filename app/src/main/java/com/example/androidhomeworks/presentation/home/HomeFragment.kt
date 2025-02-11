@@ -11,8 +11,10 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidhomeworks.R
 import com.example.androidhomeworks.adapters.UserAdapter
+import com.example.androidhomeworks.data.local.room.user.UserDatabase
 import com.example.androidhomeworks.databinding.FragmentHomeBinding
 import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
+import com.example.androidhomeworks.presentation.view_model_factory.HomeViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -23,7 +25,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private val userAdapter by lazy {
         UserAdapter()
     }
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels {
+        HomeViewModelFactory(
+            database = UserDatabase.getDatabase(requireContext())
+        )
+    }
 
     override fun listeners() {
         binding.ivProfile.setOnClickListener {

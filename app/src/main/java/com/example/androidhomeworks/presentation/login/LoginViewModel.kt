@@ -1,10 +1,11 @@
 package com.example.androidhomeworks.presentation.login
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidhomeworks.common.ApiHelper
 import com.example.androidhomeworks.common.Resource
-import com.example.androidhomeworks.data.local.MyDataStore
+import com.example.androidhomeworks.data.local.datastore.MyDataStore
 import com.example.androidhomeworks.data.remote.login.LoginDto
 import com.example.androidhomeworks.retrofit.RetrofitClient
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,9 +17,9 @@ class LoginViewModel(private val myDataStore: MyDataStore) : ViewModel() {
     val loginState: StateFlow<Resource<Unit>> = _loginState
 
 
-    fun login(email: String, password: String, rememberMe: Boolean) {
+    fun login(context: Context, email: String, password: String, rememberMe: Boolean) {
         viewModelScope.launch {
-            val result = ApiHelper.handleHttpRequest(apiCall = {
+            val result = ApiHelper.handleHttpRequest(context = context, apiCall = {
                 RetrofitClient.retrofitService.login(LoginDto(email, password))
             })
             when (result) {

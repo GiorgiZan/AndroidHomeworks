@@ -19,6 +19,6 @@ interface RetrofitService {
     suspend fun register(@Body request: RegisterDto): Response<RegisterResponseDto>
 
     @GET("users")
-    suspend fun getUsers(@Query("page") page: Int): Response<UsersResponseDto>
+    suspend fun getUsers(@Query("page") page: Int): UsersResponseDto
 
 }
