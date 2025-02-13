@@ -14,9 +14,11 @@ import com.example.androidhomeworks.common.Resource
 import com.example.androidhomeworks.databinding.FragmentRegisterBinding
 import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
 
     private val registerViewModel: RegisterViewModel by viewModels()
@@ -40,7 +42,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
 
-        registerViewModel.register(requireContext(), email, password)
+        registerViewModel.register(email, password)
         registerStateManagement()
 
     }

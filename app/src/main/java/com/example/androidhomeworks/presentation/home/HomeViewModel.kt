@@ -10,11 +10,14 @@ import androidx.paging.cachedIn
 import com.example.androidhomeworks.data.local.room.user.UserDatabase
 import com.example.androidhomeworks.data.local.room.user.UserEntity
 import com.example.androidhomeworks.mediator.Mediator
-import com.example.androidhomeworks.retrofit.RetrofitClient
+import com.example.androidhomeworks.data.remote.retrofit.RetrofitService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 
-class HomeViewModel(private val database: UserDatabase) : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val database: UserDatabase, private val retrofitService: RetrofitService) : ViewModel() {
 
     @OptIn(ExperimentalPagingApi::class)
     private val pager= Pager(
@@ -22,7 +25,7 @@ class HomeViewModel(private val database: UserDatabase) : ViewModel() {
             pageSize = 6,
             prefetchDistance = 1
         ),
-        remoteMediator = Mediator(database, RetrofitClient.retrofitService),
+        remoteMediator = Mediator(database, retrofitService),
         pagingSourceFactory = { database.userDao().getUsers() }
     )
 

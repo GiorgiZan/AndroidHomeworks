@@ -1,17 +1,17 @@
-package com.example.androidhomeworks.data.local.datastore
+package com.example.androidhomeworks.data.repository
 
-import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-private val Context.dataStore by preferencesDataStore(name = "AppPreferences")
 
-class MyDataStore(context: Context) {
+class DataStoreRepository @Inject constructor(private val dataStore : DataStore<Preferences>) {
 
-    private val dataStore = context.dataStore
+
 
     companion object {
         val EMAIL = stringPreferencesKey("email")

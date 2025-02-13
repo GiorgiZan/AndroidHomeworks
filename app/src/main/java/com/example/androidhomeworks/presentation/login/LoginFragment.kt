@@ -12,21 +12,21 @@ import androidx.navigation.fragment.findNavController
 import com.example.androidhomeworks.R
 import com.example.androidhomeworks.common.Resource
 import com.example.androidhomeworks.databinding.FragmentLoginBinding
-import com.example.androidhomeworks.data.local.datastore.MyDataStore
+import com.example.androidhomeworks.data.repository.DataStoreRepository
 import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
-import com.example.androidhomeworks.presentation.view_model_factory.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
-    private val myDataStore by lazy { MyDataStore(requireContext()) }
+    @Inject
+    lateinit var dataStoreRepository: DataStoreRepository
     private var hasNavigatedToHome = false
 
-    private val loginViewModel: LoginViewModel by viewModels {
-        ViewModelFactory { LoginViewModel(myDataStore) }
-    }
+    private val loginViewModel: LoginViewModel by viewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +37,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private fun checkLoggedInUser() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                myDataStore.email.collectLatest { email ->
+                dataStoreRepository.email.collectLatest { email ->
                     if (!email.isNullOrEmpty()) {
                         navigateToHome()
                     }
@@ -76,7 +76,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                                 hasNavigatedToHome = true
                                 loaded()
                                 Snackbar.make(binding.root, "Login Successful", Snackbar.LENGTH_LONG).show()
-                                myDataStore.email.collectLatest { email ->
+                                dataStoreRepository.email.collectLatest { email ->
                                     if (email.isNullOrEmpty()) {
                                         navigateToHome()
                                     }
@@ -101,7 +101,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         val password = binding.etPassword.text.toString()
         val rememberMe = binding.cbRememberMe.isChecked
 
-        loginViewModel.login(requireContext(), email, password, rememberMe)
+        loginViewModel.login(email, password, rememberMe)
         loginStateManagement()
     }
 

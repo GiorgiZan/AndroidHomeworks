@@ -6,10 +6,10 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-object ApiHelper {
+class ApiHelper(private val context: Context) {
 
 
-    suspend fun <T> handleHttpRequest(context: Context, apiCall: suspend () -> Response<T>): Resource<T> {
+    suspend fun <T> handleHttpRequest(apiCall: suspend () -> Response<T>): Resource<T> {
         if (!NetworkHelper.isNetworkAvailable(context)) {
             return Resource.Error(errorMessage = "No internet connection")
         }
@@ -21,7 +21,7 @@ object ApiHelper {
                     Resource.Success(data = it)
                 } ?: Resource.Error(errorMessage = "Something went wrong")
             } else {
-                Resource.Error(errorMessage = response.errorBody()?.string()?: "Error")
+                Resource.Error(errorMessage = response.errorBody()?.string() ?: "Error")
             }
         } catch (throwable: Throwable) {
             when (throwable) {

@@ -3,7 +3,7 @@ package com.example.androidhomeworks.adapters
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.androidhomeworks.data.remote.users.UsersResponseDto
-import com.example.androidhomeworks.retrofit.RetrofitService
+import com.example.androidhomeworks.data.remote.retrofit.RetrofitService
 
 class UserPagingSource(private val retrofitService: RetrofitService) :
     PagingSource<Int, UsersResponseDto.User>() {

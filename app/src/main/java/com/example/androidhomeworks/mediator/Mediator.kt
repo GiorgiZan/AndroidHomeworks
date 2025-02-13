@@ -1,6 +1,5 @@
 package com.example.androidhomeworks.mediator
 
-import android.util.Log
 import androidx.datastore.core.IOException
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -9,7 +8,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.androidhomeworks.data.local.room.user.UserDatabase
 import com.example.androidhomeworks.data.local.room.user.UserEntity
-import com.example.androidhomeworks.retrofit.RetrofitService
+import com.example.androidhomeworks.data.remote.retrofit.RetrofitService
 import retrofit2.HttpException
 
 @OptIn(ExperimentalPagingApi::class)
@@ -34,7 +33,10 @@ class Mediator(
                         ?: return MediatorResult.Success(
                             endOfPaginationReached = true
                         )
-                    val nextPageNumber = lastItem.id / state.config.pageSize + 1
+                    var nextPageNumber = lastItem.id / state.config.pageSize + 1
+                    if( nextPageNumber > 2 ){
+                        nextPageNumber = 2
+                    }
                     nextPageNumber
                 }
             }

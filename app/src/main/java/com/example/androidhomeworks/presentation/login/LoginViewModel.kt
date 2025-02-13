@@ -1,33 +1,34 @@
 package com.example.androidhomeworks.presentation.login
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidhomeworks.common.ApiHelper
 import com.example.androidhomeworks.common.Resource
-import com.example.androidhomeworks.data.local.datastore.MyDataStore
-import com.example.androidhomeworks.data.remote.login.LoginDto
-import com.example.androidhomeworks.retrofit.RetrofitClient
+import com.example.androidhomeworks.data.repository.DataStoreRepository
+import com.example.androidhomeworks.data.repository.LoginRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(private val myDataStore: MyDataStore) : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val dataStoreRepository: DataStoreRepository,
+    private val loginRepository: LoginRepository
+) : ViewModel() {
     private val _loginState = MutableStateFlow<Resource<Unit>>(Resource.Loading)
     val loginState: StateFlow<Resource<Unit>> = _loginState
 
 
-    fun login(context: Context, email: String, password: String, rememberMe: Boolean) {
+    fun login(email: String, password: String, rememberMe: Boolean) {
         viewModelScope.launch {
-            val result = ApiHelper.handleHttpRequest(context = context, apiCall = {
-                RetrofitClient.retrofitService.login(LoginDto(email, password))
-            })
+            val result = loginRepository.login(email, password)
             when (result) {
                 is Resource.Success -> {
                     if (rememberMe) {
-                        myDataStore.saveLoginInfo(email)
+                        dataStoreRepository.saveLoginInfo(email)
                     } else {
-                        myDataStore.saveSessionEmail(email)
+                        dataStoreRepository.saveSessionEmail(email)
                     }
                     _loginState.value = Resource.Success(Unit)
                 }

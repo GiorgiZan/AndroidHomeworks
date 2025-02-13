@@ -8,17 +8,16 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.androidhomeworks.R
 import com.example.androidhomeworks.databinding.FragmentProfileBinding
-import com.example.androidhomeworks.data.local.datastore.MyDataStore
 import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
-import com.example.androidhomeworks.presentation.view_model_factory.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
+
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
-    private val homeViewModel: ProfileViewModel by viewModels {
-        ViewModelFactory { ProfileViewModel(MyDataStore(requireContext())) }
-    }
+    private val homeViewModel: ProfileViewModel by viewModels()
 
     override fun listeners() {
         viewLifecycleOwner.lifecycleScope.launch {

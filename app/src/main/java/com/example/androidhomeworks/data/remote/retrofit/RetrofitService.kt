@@ -1,4 +1,4 @@
-package com.example.androidhomeworks.retrofit
+package com.example.androidhomeworks.data.remote.retrofit
 
 import com.example.androidhomeworks.data.remote.login.LoginDto
 import com.example.androidhomeworks.data.remote.login.LoginResponseDto
