@@ -1,0 +1,8 @@
+package com.example.androidhomeworks.app
+
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class App  :Application() {
+}

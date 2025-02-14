@@ -1,4 +1,4 @@
-package com.example.androidhomeworks
+package com.example.androidhomeworks.presentation.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
