@@ -6,5 +6,6 @@
     <color name="gray">#30444e</color>
     <color name="green">#3dd598</color>
     <color name="kinda_gray">#96a7af</color>
+    <color name="loading">#80000000</color>
 </resources>
 
