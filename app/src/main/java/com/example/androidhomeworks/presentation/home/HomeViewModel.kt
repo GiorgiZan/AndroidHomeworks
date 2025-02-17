@@ -3,7 +3,7 @@ package com.example.androidhomeworks.presentation.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidhomeworks.common.Resource
-import com.example.androidhomeworks.data.remote.repository.HomeRepository
+import com.example.androidhomeworks.data.repository.HomeRepository
 import com.example.androidhomeworks.data.remote.statistics.StatisticsDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

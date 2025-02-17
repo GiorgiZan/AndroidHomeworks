@@ -1,4 +1,4 @@
-package com.example.androidhomeworks.data.remote.repository
+package com.example.androidhomeworks.data.repository
 
 import com.example.androidhomeworks.common.ApiHelper
 import com.example.androidhomeworks.common.Resource
