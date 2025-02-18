@@ -18,6 +18,7 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel() {
     private val _loginState = MutableStateFlow<Resource<Unit>>(Resource.Loading)
     val loginState: StateFlow<Resource<Unit>> = _loginState
+    val loggedInEmail = dataStoreRepository.email
 
 
     fun login(email: String, password: String, rememberMe: Boolean) {

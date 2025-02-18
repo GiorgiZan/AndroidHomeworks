@@ -18,4 +18,5 @@
     <string name="passwords_should_be_equal">Passwords should be equal!</string>
     <string name="profile">Profile</string>
     <string name="failed_to_load_users">Failed to fetch users, loading locally saved users</string>
+    <string name="register_successful">Register Successful</string>
 </resources>

@@ -66,7 +66,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                                 }
                                 setFragmentResult("requestKey", result)
 
-                                Snackbar.make(binding.root, "Register Successful", Snackbar.LENGTH_LONG)
+                                Snackbar.make(binding.root,
+                                    getString(R.string.register_successful), Snackbar.LENGTH_LONG)
                                     .show()
                                 navigateToLogin()
                             }

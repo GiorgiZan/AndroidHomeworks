@@ -12,18 +12,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.androidhomeworks.R
 import com.example.androidhomeworks.common.Resource
 import com.example.androidhomeworks.databinding.FragmentLoginBinding
-import com.example.androidhomeworks.data.repository.DataStoreRepository
 import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
-    @Inject
-    lateinit var dataStoreRepository: DataStoreRepository
     private var hasNavigatedToHome = false
 
     private val loginViewModel: LoginViewModel by viewModels()
@@ -37,7 +33,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private fun checkLoggedInUser() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                dataStoreRepository.email.collectLatest { email ->
+                loginViewModel.loggedInEmail.collectLatest { email ->
                     if (!email.isNullOrEmpty()) {
                         navigateToHome()
                     }
@@ -76,7 +72,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                                 hasNavigatedToHome = true
                                 loaded()
                                 Snackbar.make(binding.root, "Login Successful", Snackbar.LENGTH_LONG).show()
-                                dataStoreRepository.email.collectLatest { email ->
+                                loginViewModel.loggedInEmail.collectLatest { email ->
                                     if (email.isNullOrEmpty()) {
                                         navigateToHome()
                                     }
