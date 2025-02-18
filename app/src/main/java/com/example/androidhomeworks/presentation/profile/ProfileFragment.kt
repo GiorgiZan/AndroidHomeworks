@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
-
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
     private val homeViewModel: ProfileViewModel by viewModels()
@@ -22,14 +21,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     override fun listeners() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeViewModel.sessionEmail.collectLatest { sessionEmail ->
-                    if (sessionEmail != null) {
-                        binding.tvEmail.text = sessionEmail
-                    } else {
-                        homeViewModel.email.collectLatest { email ->
-                            binding.tvEmail.text = email ?: "No email found"
-                        }
-                    }
+                homeViewModel.email.collectLatest { email ->
+                    binding.tvEmail.text = email
                 }
             }
         }

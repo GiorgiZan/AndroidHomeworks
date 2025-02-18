@@ -12,12 +12,10 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository) : ViewModel() {
     val email: Flow<String?> = dataStoreRepository.email
 
-    val sessionEmail: Flow<String?> = dataStoreRepository.sessionEmail
 
     fun logout(onComplete: () -> Unit) {
         viewModelScope.launch {
             dataStoreRepository.clearLoginInfo()
-            dataStoreRepository.clearSessionEmail()
             onComplete()
         }
     }

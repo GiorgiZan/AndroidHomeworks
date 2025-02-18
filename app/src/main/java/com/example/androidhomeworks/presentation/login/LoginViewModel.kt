@@ -6,8 +6,10 @@ import com.example.androidhomeworks.common.Resource
 import com.example.androidhomeworks.data.repository.DataStoreRepository
 import com.example.androidhomeworks.data.repository.LoginRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,19 +20,27 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel() {
     private val _loginState = MutableStateFlow<Resource<Unit>>(Resource.Loading)
     val loginState: StateFlow<Resource<Unit>> = _loginState
-    val loggedInEmail = dataStoreRepository.email
 
+
+    private val _loggedInEmail = MutableStateFlow<String?>(null)
+    val loggedInEmail: StateFlow<String?> = _loggedInEmail
+
+    init {
+        viewModelScope.launch {
+            dataStoreRepository.clearEmailIfNotRemembered()
+            dataStoreRepository.email.collectLatest { email ->
+                _loggedInEmail.value = email
+            }
+        }
+
+    }
 
     fun login(email: String, password: String, rememberMe: Boolean) {
         viewModelScope.launch {
             val result = loginRepository.login(email, password)
             when (result) {
                 is Resource.Success -> {
-                    if (rememberMe) {
-                        dataStoreRepository.saveLoginInfo(email)
-                    } else {
-                        dataStoreRepository.saveSessionEmail(email)
-                    }
+                    dataStoreRepository.saveLoginInfo(email, rememberMe)
                     _loginState.value = Resource.Success(Unit)
                 }
 
