@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="share">Share</string>
+    <string name="write_comment">Write comment...</string>
+    <string name="messages">Messages</string>
+    <string name="bell">bell</string>
+    <string name="house">House</string>
+    <string name="heart">Heart</string>
 </resources>

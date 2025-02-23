@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_heart"
+        android:icon="@drawable/heart"
+        android:title="@string/heart" />
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home"
+        android:title="@string/house" />
+
+    <item
+        android:id="@+id/nav_message"
+        android:icon="@drawable/comments"
+        android:title="@string/messages" />
+
+    <item
+        android:id="@+id/nav_bell"
+        android:icon="@drawable/bell"
+        android:title="@string/bell" />
+</menu>

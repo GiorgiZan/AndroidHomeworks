@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="3dp"
+    android:paddingTop="3dp"
+    android:paddingEnd="3dp"
+    android:paddingBottom="20dp">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="317dp"
+        android:layout_height="435dp"
+        android:backgroundTint="@color/gray"
+        android:elevation="5dp"
+        app:cardCornerRadius="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPostImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/circle"
+        android:clipToOutline="true"
+        android:elevation="5dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="@+id/cardView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPostFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:elevation="5dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/ivPostImage"
+        app:layout_constraintTop_toTopOf="@+id/ivPostImage" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPostTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:elevation="5dp"
+        android:textColor="@color/kinda_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPostImage"
+        app:layout_constraintStart_toEndOf="@+id/ivPostImage" />
+
+    <android.widget.ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="279dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="11dp"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPostTime">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPostDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </android.widget.ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="279dp"
+        android:layout_height="154dp"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivFirstImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/round_background"
+            android:clipToOutline="true"
+            android:scaleType="fitXY"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivSecondImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivSecondImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/round_background"
+            android:clipToOutline="true"
+            android:scaleType="fitXY"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/ivThirdImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivFirstImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivThirdImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/round_background"
+            android:clipToOutline="true"
+            android:scaleType="fitXY"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ivSecondImage"
+            app:layout_constraintStart_toEndOf="@+id/ivFirstImage"
+            app:layout_constraintTop_toBottomOf="@id/ivSecondImage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/viewLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:elevation="5dp"
+        android:src="@drawable/half_line"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/container"/>
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivCommentsIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:elevation="5dp"
+        android:src="@drawable/comments_icon"
+        app:layout_constraintStart_toStartOf="@+id/viewLine"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvComments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginBottom="3dp"
+        android:elevation="5dp"
+        android:textColor="@color/kinda_gray"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivCommentsIcon"
+        app:layout_constraintStart_toEndOf="@+id/ivCommentsIcon"
+        app:layout_constraintTop_toTopOf="@+id/ivCommentsIcon" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLikesIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="18dp"
+        android:elevation="5dp"
+        android:src="@drawable/like_icon"
+        app:layout_constraintEnd_toEndOf="@+id/viewLine"
+        app:layout_constraintStart_toStartOf="@+id/viewLine"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginBottom="3dp"
+        android:elevation="5dp"
+        android:textColor="@color/kinda_gray"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLikesIcon"
+        app:layout_constraintStart_toEndOf="@+id/ivLikesIcon"
+        app:layout_constraintTop_toTopOf="@+id/ivLikesIcon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivShareIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="44dp"
+        android:elevation="5dp"
+        android:src="@drawable/share_icon"
+        app:layout_constraintEnd_toEndOf="@+id/viewLine"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginBottom="3dp"
+        android:elevation="5dp"
+        android:text="@string/share"
+        android:textColor="@color/kinda_gray"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivShareIcon"
+        app:layout_constraintStart_toEndOf="@+id/ivShareIcon"
+        app:layout_constraintTop_toTopOf="@+id/ivShareIcon" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/secondViewLine"
+        android:layout_width="317dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:src="@drawable/line"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/ivLikesIcon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/circle"
+        android:backgroundTint="@color/green"
+        android:elevation="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secondViewLine" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:src="@drawable/nika"
+        app:layout_constraintBottom_toBottomOf="@+id/ivProfileImage"
+        app:layout_constraintEnd_toEndOf="@+id/ivProfileImage"
+        app:layout_constraintStart_toStartOf="@+id/ivProfileImage"
+        app:layout_constraintTop_toTopOf="@+id/ivProfileImage" />
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="225dp"
+        android:layout_height="42dp"
+        android:background="@drawable/round_rectangle"
+        android:backgroundTint="@color/dark_green"
+        android:drawableEnd="@drawable/attach_icon"
+        android:elevation="5dp"
+
+        android:hint="@string/write_comment"
+        android:inputType="text"
+        android:paddingStart="16dp"
+        android:paddingEnd="10dp"
+        android:textColorHint="@color/kinda_gray"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
+        app:layout_constraintTop_toTopOf="@+id/ivProfileImage" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
