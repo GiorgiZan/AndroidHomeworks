@@ -1,9 +1,11 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.safeargs)
     alias(libs.plugins.serialization)
     alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.secrets.gradle)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
@@ -50,6 +52,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.play.services.location)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -74,6 +79,9 @@ dependencies {
 
     implementation(libs.logging.interceptor)
 
+    implementation(libs.play.services.maps)
+    implementation(libs.secrets.gradle.plugin)
+    implementation (libs.android.maps.utils)
 }
 
 kapt {

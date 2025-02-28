@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="zoom_out">Zoom Out</string>
+    <string name="zoom_in">Zoom In</string>
+    <string name="location_permission_is_required">Location permission is required</string>
+    <string name="please_enable_location_services">Please enable location services</string>
+    <string name="your_location">Your Location</string>
+    <string name="unable_to_get_device_location">Unable to get device location</string>
+    <string name="failed_to_get_location">Failed to get location</string>
+    <string name="location_permissions_required">Location permissions required</string>
+    <string name="locations">Locations</string>
 </resources>
