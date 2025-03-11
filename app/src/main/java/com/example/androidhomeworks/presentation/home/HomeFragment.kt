@@ -3,20 +3,16 @@ package com.example.androidhomeworks.presentation.home
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidhomeworks.R
-import com.example.androidhomeworks.adapters.UserAdapter
+import com.example.androidhomeworks.presentation.adapter.UserAdapter
 import com.example.androidhomeworks.databinding.FragmentHomeBinding
 import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
+import com.example.androidhomeworks.presentation.extension.lifecyclescope.lifecycleCollectLatest
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
@@ -63,12 +59,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
 
     private fun submitUsers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeViewModel.usersFlow.collectLatest { pagingData ->
+        lifecycleCollectLatest(homeViewModel.usersFlow) { pagingData ->
                     userAdapter.submitData(pagingData)
-                }
-            }
         }
     }
 

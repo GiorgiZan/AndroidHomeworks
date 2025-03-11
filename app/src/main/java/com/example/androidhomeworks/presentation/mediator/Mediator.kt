@@ -1,4 +1,4 @@
-package com.example.androidhomeworks.mediator
+package com.example.androidhomeworks.presentation.mediator
 
 import androidx.datastore.core.IOException
 import androidx.paging.ExperimentalPagingApi

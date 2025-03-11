@@ -9,7 +9,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.androidhomeworks.data.local.room.user.UserDatabase
 import com.example.androidhomeworks.data.local.room.user.UserEntity
-import com.example.androidhomeworks.mediator.Mediator
+import com.example.androidhomeworks.presentation.mediator.Mediator
 import com.example.androidhomeworks.data.remote.retrofit.RetrofitService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow

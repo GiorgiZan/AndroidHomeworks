@@ -4,19 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.androidhomeworks.R
 import com.example.androidhomeworks.common.Resource
 import com.example.androidhomeworks.databinding.FragmentRegisterBinding
 import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
+import com.example.androidhomeworks.presentation.extension.lifecyclescope.lifecycleCollectLatest
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
@@ -27,9 +23,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     override fun listeners() {
 
         binding.btnRegister.setOnClickListener {
-            if (!validateFields()) {
-                return@setOnClickListener
-            }
+            observeUiEvents()
             registerViaService()
 
         }
@@ -41,78 +35,71 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     private fun registerViaService() {
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
+        val repeatedPassword = binding.etRepeatPassword.text.toString()
 
-        registerViewModel.register(email, password)
-        registerStateManagement()
+        registerViewModel.register(email, password, repeatedPassword)
 
     }
 
     private fun registerStateManagement() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                registerViewModel.registerState.collectLatest { state ->
-                    when (state) {
-                        is Resource.Loading -> {
-                            loading()
-                        }
+        lifecycleCollectLatest(registerViewModel.registerState) { state ->
+            when (state) {
+                is Resource.Loading -> {
+                    loading()
+                }
 
-                        is Resource.Success -> {
-                            if (!hasNavigatedToLogin) {
-                                hasNavigatedToLogin = true
-                                loaded()
-                                val result = Bundle().apply {
-                                    putString("email", binding.etEmail.text.toString())
-                                    putString("password", binding.etPassword.text.toString())
-                                }
-                                setFragmentResult("requestKey", result)
-
-                                Snackbar.make(binding.root, "Register Successful", Snackbar.LENGTH_LONG)
-                                    .show()
-                                navigateToLogin()
-                            }
+                is Resource.Success -> {
+                    if (!hasNavigatedToLogin) {
+                        hasNavigatedToLogin = true
+                        loaded()
+                        val result = Bundle().apply {
+                            putString("email", binding.etEmail.text.toString())
+                            putString("password", binding.etPassword.text.toString())
                         }
+                        setFragmentResult("requestKey", result)
 
-                        is Resource.Error -> {
-                            loaded()
-                            Snackbar.make(binding.root, state.errorMessage, Snackbar.LENGTH_LONG)
-                                .show()
-                        }
+                        Snackbar.make(
+                            binding.root,
+                            "Register Successful",
+                            Snackbar.LENGTH_LONG
+                        )
+                            .show()
+                        navigateToLogin()
                     }
+                }
+
+                is Resource.Error -> {
+                    loaded()
+                    Snackbar.make(binding.root, state.errorMessage, Snackbar.LENGTH_LONG)
+                        .show()
                 }
             }
         }
     }
 
+    private fun observeUiEvents() {
+        lifecycleCollectLatest(registerViewModel.uiEvent) { event ->
+            when (event) {
+                is RegisterUiEvent.ShowEmailError -> {
+                    binding.etEmail.error = getString(R.string.invalid_email_address)
+                }
 
-    private fun validateFields(): Boolean {
-        if (binding.etEmail.text.toString().isEmpty()) {
-            binding.etEmail.error = getString(R.string.email_should_not_be_empty)
-            return false
-        }
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString())
-                .matches()
-        ) {
-            binding.etEmail.error = getString(R.string.invalid_email_address)
-            return false
-        }
-        if (binding.etPassword.text.toString().isEmpty()) {
-            binding.etPassword.error = getString(R.string.password_should_not_be_empty)
-            return false
-        }
+                is RegisterUiEvent.ShowPasswordError -> {
+                    binding.etPassword.error = getString(R.string.password_should_not_be_empty)
+                }
 
-        if (binding.etRepeatPassword.text.toString().isEmpty()) {
-            binding.etRepeatPassword.error = getString(R.string.password_should_not_be_empty)
-            return false
+                is RegisterUiEvent.ShowRepeatPasswordError -> {
+                    binding.etRepeatPassword.error = getString(R.string.passwords_should_be_equal)
+                }
+
+                is RegisterUiEvent.RegisterSuccess -> {
+                    registerStateManagement()
+                }
+
+            }
         }
-        if (binding.etRepeatPassword.text.toString() != binding.etPassword.text.toString()) {
-            Snackbar.make(
-                binding.root,
-                getString(R.string.passwords_should_be_equal), Snackbar.LENGTH_SHORT
-            ).show()
-            return false
-        }
-        return true
     }
+
 
     private fun navigateToLogin() {
         findNavController().navigate(

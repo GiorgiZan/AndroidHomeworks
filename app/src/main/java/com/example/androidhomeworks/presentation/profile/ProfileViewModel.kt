@@ -2,22 +2,30 @@ package com.example.androidhomeworks.presentation.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidhomeworks.data.repository.DataStoreRepository
+import com.example.androidhomeworks.domain.usecase.ClearSessionEmailUseCase
+import com.example.androidhomeworks.domain.usecase.GetSessionEmailUseCase
+import com.example.androidhomeworks.domain.usecase.datastore.ClearLoginInfoUseCase
+import com.example.androidhomeworks.domain.usecase.datastore.GetEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository) : ViewModel() {
-    val email: Flow<String?> = dataStoreRepository.email
+class ProfileViewModel @Inject constructor(
+    private val clearLoginInfoUseCase: ClearLoginInfoUseCase,
+    private val clearSessionEmailUseCase: ClearSessionEmailUseCase,
+    getEmailUseCase: GetEmailUseCase,
+    getSessionEmailUseCase: GetSessionEmailUseCase
+) : ViewModel() {
+    val email: Flow<String?> = getEmailUseCase()
 
-    val sessionEmail: Flow<String?> = dataStoreRepository.sessionEmail
+    val sessionEmail: Flow<String?> = getSessionEmailUseCase()
 
     fun logout(onComplete: () -> Unit) {
         viewModelScope.launch {
-            dataStoreRepository.clearLoginInfo()
-            dataStoreRepository.clearSessionEmail()
+            clearLoginInfoUseCase()
+            clearSessionEmailUseCase()
             onComplete()
         }
     }

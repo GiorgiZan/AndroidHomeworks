@@ -1,4 +1,4 @@
-package com.example.androidhomeworks.adapters
+package com.example.androidhomeworks.presentation.adapter
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
