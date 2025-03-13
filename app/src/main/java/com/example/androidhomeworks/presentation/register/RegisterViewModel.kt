@@ -2,7 +2,7 @@ package com.example.androidhomeworks.presentation.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidhomeworks.common.Resource
+import com.example.androidhomeworks.domain.resource.Resource
 import com.example.androidhomeworks.domain.usecase.register.RegisterUseCase
 import com.example.androidhomeworks.domain.usecase.validation.EmailValidationUseCase
 import com.example.androidhomeworks.domain.usecase.validation.PasswordValidationUseCase
@@ -23,8 +23,8 @@ class RegisterViewModel @Inject constructor(
     private val repeatPasswordValidationUseCase: RepeatPasswordValidationUseCase
 ) : ViewModel() {
 
-    private val _registerState = MutableStateFlow<Resource<Unit>>(Resource.Loading)
-    val registerState: StateFlow<Resource<Unit>> = _registerState
+    private val _registerState = MutableStateFlow<RegisterState>(RegisterState.Loading)
+    val registerState: StateFlow<RegisterState> = _registerState
 
     private val _uiEvent = MutableSharedFlow<RegisterUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
@@ -48,21 +48,14 @@ class RegisterViewModel @Inject constructor(
             } else {
                 _uiEvent.emit(RegisterUiEvent.RegisterSuccess)
             }
-            val result = registerUseCase(email, password)
-            when (result) {
-                is Resource.Success -> {
-                    _registerState.value = Resource.Success(Unit)
-                }
 
-                is Resource.Error -> {
-                    _registerState.value = Resource.Error(result.errorMessage)
-
-                }
-
-                is Resource.Loading -> {
+            registerUseCase(email, password).collect { result ->
+                _registerState.value = when (result) {
+                    is Resource.Success -> RegisterState.Success
+                    is Resource.Error -> RegisterState.Error(result.errorMessage)
+                    is Resource.Loading -> RegisterState.Loading
                 }
             }
-
         }
     }
 

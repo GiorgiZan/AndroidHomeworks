@@ -7,13 +7,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.androidhomeworks.R
-import com.example.androidhomeworks.common.Resource
 import com.example.androidhomeworks.databinding.FragmentLoginBinding
 import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
 import com.example.androidhomeworks.presentation.extension.lifecyclescope.lifecycleCollectLatest
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
@@ -53,37 +51,28 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private fun loginStateManagement() {
         lifecycleCollectLatest(loginViewModel.loginState) { state ->
             when (state) {
-                is Resource.Loading -> {
-                    loading()
-                }
-
-                is Resource.Success -> {
+                is LoginState.Loading -> loading()
+                is LoginState.Success -> {
                     if (!hasNavigatedToHome) {
                         hasNavigatedToHome = true
                         loaded()
                         Snackbar.make(
                             binding.root,
-                            "Login Successful",
+                            getString(R.string.login_successful),
                             Snackbar.LENGTH_LONG
                         ).show()
-                        loginViewModel.email.collectLatest { email ->
-                            if (email.isNullOrEmpty()) {
-                                navigateToHome()
-                            }
-                        }
+                        navigateToHome()
                     }
-
                 }
 
-                is Resource.Error -> {
+                is LoginState.Error -> {
                     loaded()
-                    Snackbar.make(binding.root, state.errorMessage, Snackbar.LENGTH_LONG)
-                        .show()
+                    Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
                 }
             }
         }
-
     }
+
 
     private fun observeUiEvents() {
         lifecycleCollectLatest(loginViewModel.uiEvent) { event ->

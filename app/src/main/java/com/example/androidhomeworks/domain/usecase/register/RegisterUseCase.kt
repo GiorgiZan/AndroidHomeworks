@@ -1,14 +1,20 @@
 package com.example.androidhomeworks.domain.usecase.register
 
-import com.example.androidhomeworks.common.Resource
-import com.example.androidhomeworks.data.remote.register.RegisterResponseDto
+import com.example.androidhomeworks.domain.resource.Resource
+import com.example.androidhomeworks.domain.model.RegisterResponse
 import com.example.androidhomeworks.domain.repository.register.RegisterRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class RegisterUseCase @Inject constructor(
+
+interface RegisterUseCase{
+    suspend operator fun invoke(email: String, password: String): Flow<Resource<RegisterResponse>>
+}
+
+class RegisterUseCaseImpl @Inject constructor(
     private val repository: RegisterRepository
-) {
-    suspend operator fun invoke(email: String, password: String): Resource<RegisterResponseDto> {
+) :RegisterUseCase{
+    override suspend operator fun invoke(email: String, password: String): Flow<Resource<RegisterResponse>> {
         return repository.register(email, password)
     }
 }

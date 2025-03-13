@@ -1,15 +1,21 @@
 package com.example.androidhomeworks.domain.usecase.login
 
 
-import com.example.androidhomeworks.common.Resource
-import com.example.androidhomeworks.data.remote.login.LoginResponseDto
+import com.example.androidhomeworks.domain.resource.Resource
+import com.example.androidhomeworks.domain.model.LoginResponse
 import com.example.androidhomeworks.domain.repository.login.LoginRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class LoginUseCase @Inject constructor(
+
+interface LoginUseCase{
+    suspend operator fun invoke(email: String, password: String,rememberMe :Boolean): Flow<Resource<LoginResponse>>
+}
+
+class LoginUseCaseImpl @Inject constructor(
     private val loginRepository: LoginRepository
-) {
-    suspend operator fun invoke(email: String, password: String): Resource<LoginResponseDto> {
-        return loginRepository.login(email, password)
+) : LoginUseCase{
+    override suspend operator fun invoke(email: String, password: String,rememberMe :Boolean): Flow<Resource<LoginResponse>> {
+        return loginRepository.login(email, password,rememberMe)
     }
 }

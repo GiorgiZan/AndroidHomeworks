@@ -5,8 +5,12 @@ import com.example.androidhomeworks.domain.repository.datastore.DataStoreReposit
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetEmailUseCase @Inject constructor(private val dataStore: DataStoreRepository) {
-    operator fun invoke(): Flow<String?> {
+interface GetEmailUseCase{
+    operator fun invoke(): Flow<String?>
+}
+
+class GetEmailUseCaseImpl @Inject constructor(private val dataStore: DataStoreRepository):GetEmailUseCase {
+    override operator fun invoke(): Flow<String?> {
         return dataStore.email
     }
 }

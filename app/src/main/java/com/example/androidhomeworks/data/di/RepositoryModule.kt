@@ -1,8 +1,8 @@
 package com.example.androidhomeworks.data.di
 
-import com.example.androidhomeworks.data.repository.DataStoreRepositoryImpl
-import com.example.androidhomeworks.data.repository.LoginRepositoryImpl
-import com.example.androidhomeworks.data.repository.RegisterRepositoryImpl
+import com.example.androidhomeworks.data.repository.datastore.DataStoreRepositoryImpl
+import com.example.androidhomeworks.data.repository.login.LoginRepositoryImpl
+import com.example.androidhomeworks.data.repository.register.RegisterRepositoryImpl
 import com.example.androidhomeworks.domain.repository.datastore.DataStoreRepository
 import com.example.androidhomeworks.domain.repository.login.LoginRepository
 import com.example.androidhomeworks.domain.repository.register.RegisterRepository

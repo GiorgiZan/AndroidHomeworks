@@ -2,10 +2,8 @@ package com.example.androidhomeworks.presentation.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidhomeworks.common.Resource
+import com.example.androidhomeworks.domain.resource.Resource
 import com.example.androidhomeworks.domain.usecase.datastore.GetEmailUseCase
-import com.example.androidhomeworks.domain.usecase.datastore.SaveLoginInfoUseCase
-import com.example.androidhomeworks.domain.usecase.datastore.SaveSessionEmailUseCase
 import com.example.androidhomeworks.domain.usecase.login.LoginUseCase
 import com.example.androidhomeworks.domain.usecase.validation.EmailValidationUseCase
 import com.example.androidhomeworks.domain.usecase.validation.PasswordValidationUseCase
@@ -15,21 +13,20 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val saveLoginInfoUseCase: SaveLoginInfoUseCase,
-    private val saveSessionEmailUseCase: SaveSessionEmailUseCase,
     private val emailValidationUseCase: EmailValidationUseCase,
     private val passwordValidationUseCase: PasswordValidationUseCase,
     getEmailUseCase: GetEmailUseCase
 
 ) : ViewModel() {
-    private val _loginState = MutableStateFlow<Resource<Unit>>(Resource.Loading)
-    val loginState: StateFlow<Resource<Unit>> = _loginState
+    private val _loginState = MutableStateFlow<LoginState>(LoginState.Loading)
+    val loginState: StateFlow<LoginState> = _loginState
 
     private val _uiEvent = MutableSharedFlow<LoginUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
@@ -45,36 +42,22 @@ class LoginViewModel @Inject constructor(
             if (!isEmailValid) {
                 _uiEvent.emit(LoginUiEvent.ShowEmailError)
                 return@launch
-            }
-
-            else if (!isPasswordValid) {
+            } else if (!isPasswordValid) {
                 _uiEvent.emit(LoginUiEvent.ShowPasswordError)
                 return@launch
-            }
-            else {
+            } else {
                 _uiEvent.emit(LoginUiEvent.LoginSuccess)
             }
 
-            val result = loginUseCase(email, password)
-            when (result) {
-                is Resource.Success -> {
-                    if (rememberMe) {
-                        saveLoginInfoUseCase(email)
-                    } else {
-                        saveSessionEmailUseCase(email)
-                    }
-                    _loginState.value = Resource.Success(Unit)
-                }
-
-                is Resource.Error -> {
-                    _loginState.value = Resource.Error(result.errorMessage)
-                }
-
-                is Resource.Loading -> {
+            loginUseCase(email, password, rememberMe).collectLatest { result ->
+                _loginState.value = when (result) {
+                    is Resource.Success -> LoginState.Success
+                    is Resource.Error -> LoginState.Error(result.errorMessage)
+                    is Resource.Loading -> LoginState.Loading
                 }
             }
+
         }
     }
-
 
 }

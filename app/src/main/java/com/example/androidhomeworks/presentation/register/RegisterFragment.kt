@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.androidhomeworks.R
-import com.example.androidhomeworks.common.Resource
 import com.example.androidhomeworks.databinding.FragmentRegisterBinding
 import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
 import com.example.androidhomeworks.presentation.extension.lifecyclescope.lifecycleCollectLatest
@@ -44,14 +43,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     private fun registerStateManagement() {
         lifecycleCollectLatest(registerViewModel.registerState) { state ->
             when (state) {
-                is Resource.Loading -> {
-                    loading()
-                }
-
-                is Resource.Success -> {
+                is RegisterState.Loading -> loading()
+                is RegisterState.Success -> {
                     if (!hasNavigatedToLogin) {
                         hasNavigatedToLogin = true
                         loaded()
+
                         val result = Bundle().apply {
                             putString("email", binding.etEmail.text.toString())
                             putString("password", binding.etPassword.text.toString())
@@ -60,22 +57,21 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
                         Snackbar.make(
                             binding.root,
-                            "Register Successful",
+                            getString(R.string.register_successful),
                             Snackbar.LENGTH_LONG
-                        )
-                            .show()
+                        ).show()
                         navigateToLogin()
                     }
                 }
 
-                is Resource.Error -> {
+                is RegisterState.Error -> {
                     loaded()
-                    Snackbar.make(binding.root, state.errorMessage, Snackbar.LENGTH_LONG)
-                        .show()
+                    Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
                 }
             }
         }
     }
+
 
     private fun observeUiEvents() {
         lifecycleCollectLatest(registerViewModel.uiEvent) { event ->

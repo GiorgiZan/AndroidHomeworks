@@ -2,8 +2,8 @@ package com.example.androidhomeworks.presentation.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidhomeworks.domain.usecase.ClearSessionEmailUseCase
-import com.example.androidhomeworks.domain.usecase.GetSessionEmailUseCase
+import com.example.androidhomeworks.domain.usecase.datastore.ClearSessionEmailUseCase
+import com.example.androidhomeworks.domain.usecase.datastore.GetSessionEmailUseCase
 import com.example.androidhomeworks.domain.usecase.datastore.ClearLoginInfoUseCase
 import com.example.androidhomeworks.domain.usecase.datastore.GetEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
