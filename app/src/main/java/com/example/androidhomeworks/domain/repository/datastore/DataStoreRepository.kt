@@ -1,13 +1,12 @@
 package com.example.androidhomeworks.domain.repository.datastore
 
+import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.flow.Flow
 
-interface DataStoreRepository {
-    val email: Flow<String?>
-    val sessionEmail: Flow<String?>
 
-    suspend fun saveLoginInfo(email: String)
-    suspend fun clearLoginInfo()
-    suspend fun saveSessionEmail(email: String)
-    suspend fun clearSessionEmail()
+interface DataStoreRepository {
+    suspend fun <T> saveValue(key: Preferences.Key<T>, value: T)
+    fun <T> getValue(key: Preferences.Key<T>, defaultValue: T?): Flow<T?>
+    suspend fun <T> removeByKey(key: Preferences.Key<T>)
+    suspend fun clearAll()
 }

@@ -8,7 +8,6 @@ import com.example.androidhomeworks.databinding.FragmentProfileBinding
 import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
 import com.example.androidhomeworks.presentation.extension.lifecyclescope.lifecycleCollectLatest
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 
 
 @AndroidEntryPoint
@@ -16,14 +15,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     private val homeViewModel: ProfileViewModel by viewModels()
 
     override fun listeners() {
-        lifecycleCollectLatest(homeViewModel.sessionEmail) { sessionEmail ->
-            if (sessionEmail != null) {
-                binding.tvEmail.text = sessionEmail
-            } else {
-                homeViewModel.email.collectLatest { email ->
-                    binding.tvEmail.text = email ?: "No email found"
-                }
-            }
+        lifecycleCollectLatest(homeViewModel.email) { email ->
+            binding.tvEmail.text = email
         }
 
         binding.btnLogOut.setOnClickListener {
@@ -35,6 +28,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         binding.ivBackIcon.setOnClickListener {
             findNavController().navigateUp()
         }
+
+    }
+
+    override fun observer() {
 
     }
 

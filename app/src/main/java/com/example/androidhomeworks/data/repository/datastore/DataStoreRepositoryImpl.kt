@@ -3,7 +3,6 @@ package com.example.androidhomeworks.data.repository.datastore
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import com.example.androidhomeworks.data.preference_key.PreferenceKeys
 import com.example.androidhomeworks.domain.repository.datastore.DataStoreRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -14,35 +13,29 @@ class DataStoreRepositoryImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>
 ) : DataStoreRepository {
 
-    override val email: Flow<String?> = dataStore.data.map { preferences ->
-        preferences[PreferenceKeys.EMAIL]
-    }
 
-    override val sessionEmail: Flow<String?> = dataStore.data.map { preferences ->
-        preferences[PreferenceKeys.SESSION_EMAIL]
-    }
 
-    override suspend fun saveLoginInfo(email: String) {
+    override suspend fun <T> saveValue(key: Preferences.Key<T>, value: T) {
         dataStore.edit { preferences ->
-            preferences[PreferenceKeys.EMAIL] = email
+            preferences[key] = value
         }
     }
 
-    override suspend fun clearLoginInfo() {
+    override fun <T> getValue(key: Preferences.Key<T>, defaultValue: T?): Flow<T?> {
+        return dataStore.data.map { preferences ->
+            preferences[key] ?: defaultValue
+        }
+    }
+
+    override suspend fun <T> removeByKey(key: Preferences.Key<T>) {
+        dataStore.edit { preferences ->
+            preferences.remove(key)
+        }
+    }
+
+    override suspend fun clearAll() {
         dataStore.edit { preferences ->
             preferences.clear()
-        }
-    }
-
-    override suspend fun saveSessionEmail(email: String) {
-        dataStore.edit { preferences ->
-            preferences[PreferenceKeys.SESSION_EMAIL] = email
-        }
-    }
-
-    override suspend fun clearSessionEmail() {
-        dataStore.edit { preferences ->
-            preferences.remove(PreferenceKeys.SESSION_EMAIL)
         }
     }
 }

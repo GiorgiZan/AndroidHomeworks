@@ -1,13 +1,11 @@
-package com.example.androidhomeworks.domain.di
+package com.example.androidhomeworks.presentation.di
 
 import com.example.androidhomeworks.domain.usecase.datastore.ClearLoginInfoUseCase
 import com.example.androidhomeworks.domain.usecase.datastore.ClearLoginInfoUseCaseImpl
-import com.example.androidhomeworks.domain.usecase.datastore.ClearSessionEmailUseCase
-import com.example.androidhomeworks.domain.usecase.datastore.ClearSessionEmailUseCaseImpl
 import com.example.androidhomeworks.domain.usecase.datastore.GetEmailUseCase
 import com.example.androidhomeworks.domain.usecase.datastore.GetEmailUseCaseImpl
-import com.example.androidhomeworks.domain.usecase.datastore.GetSessionEmailUseCase
-import com.example.androidhomeworks.domain.usecase.datastore.GetSessionEmailUseCaseImpl
+import com.example.androidhomeworks.domain.usecase.datastore.GetRememberMeUseCase
+import com.example.androidhomeworks.domain.usecase.datastore.GetRememberMeUseCaseImpl
 import com.example.androidhomeworks.domain.usecase.login.LoginUseCase
 import com.example.androidhomeworks.domain.usecase.login.LoginUseCaseImpl
 import com.example.androidhomeworks.domain.usecase.register.RegisterUseCase
@@ -32,9 +30,6 @@ interface UseCaseModule {
     @Singleton
     fun bindClearLoginInfoUseCase(useCase: ClearLoginInfoUseCaseImpl):ClearLoginInfoUseCase
 
-    @Binds
-    @Singleton
-    fun bindClearSessionEmailUseCase(useCase: ClearSessionEmailUseCaseImpl):ClearSessionEmailUseCase
 
     @Binds
     @Singleton
@@ -42,7 +37,7 @@ interface UseCaseModule {
 
     @Binds
     @Singleton
-    fun bindGetSessionEmailUseCase(useCase: GetSessionEmailUseCaseImpl):GetSessionEmailUseCase
+    fun bindGetRememberMeUseCase(useCase: GetRememberMeUseCaseImpl): GetRememberMeUseCase
 
     @Binds
     @Singleton

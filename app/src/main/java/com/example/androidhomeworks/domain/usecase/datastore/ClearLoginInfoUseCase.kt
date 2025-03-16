@@ -10,6 +10,6 @@ interface ClearLoginInfoUseCase{
 class ClearLoginInfoUseCaseImpl @Inject constructor(private val dataStore: DataStoreRepository) :
     ClearLoginInfoUseCase {
     override suspend operator fun invoke() {
-        dataStore.clearLoginInfo()
+        dataStore.clearAll()
     }
 }

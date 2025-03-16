@@ -1,8 +1,7 @@
 package com.example.androidhomeworks.presentation.login
 
 
-import android.os.Bundle
-import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -10,36 +9,20 @@ import com.example.androidhomeworks.R
 import com.example.androidhomeworks.databinding.FragmentLoginBinding
 import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
 import com.example.androidhomeworks.presentation.extension.lifecyclescope.lifecycleCollectLatest
-import com.google.android.material.snackbar.Snackbar
+import com.example.androidhomeworks.presentation.extension.lifecyclescope.showErrorSnackBar
+import com.example.androidhomeworks.presentation.extension.lifecyclescope.showSuccessSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
-    private var hasNavigatedToHome = false
 
     private val loginViewModel: LoginViewModel by viewModels()
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        observeEmail()
-    }
-
-    private fun observeEmail() {
-        lifecycleCollectLatest(loginViewModel.email) { email ->
-            if (!email.isNullOrEmpty()) {
-                navigateToHome()
-            }
-        }
-    }
-
 
     override fun listeners() {
         loadEmailAndPasswordFromRegistration()
 
         binding.btnLogin.setOnClickListener {
-            observeUiEvents()
             loginViaService()
         }
 
@@ -48,28 +31,20 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
     }
 
-    private fun loginStateManagement() {
-        lifecycleCollectLatest(loginViewModel.loginState) { state ->
-            when (state) {
-                is LoginState.Loading -> loading()
-                is LoginState.Success -> {
-                    if (!hasNavigatedToHome) {
-                        hasNavigatedToHome = true
-                        loaded()
-                        Snackbar.make(
-                            binding.root,
-                            getString(R.string.login_successful),
-                            Snackbar.LENGTH_LONG
-                        ).show()
-                        navigateToHome()
-                    }
-                }
+    override fun observer() {
+        observeLoginState()
+        observeUiEvents()
+    }
 
-                is LoginState.Error -> {
-                    loaded()
-                    Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
-                }
+    private fun observeLoginState() {
+        lifecycleCollectLatest(loginViewModel.loginState) { state ->
+            loading(state.isLoading)
+            if (state.success) {
+                binding.root.showSuccessSnackBar(getString(R.string.login_successful))
+            } else {
+                state.error?.let { binding.root.showErrorSnackBar(it) }
             }
+
         }
     }
 
@@ -82,12 +57,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 }
 
                 is LoginUiEvent.ShowPasswordError -> {
-                    binding.etPassword.error =
-                        getString(R.string.password_should_not_be_empty)
+                    binding.etPassword.error = getString(R.string.password_should_not_be_empty)
                 }
 
-                is LoginUiEvent.LoginSuccess -> {
-                    loginStateManagement()
+                is LoginUiEvent.NavigateToHomeScreen -> {
+                    navigateToHome()
                 }
             }
         }
@@ -130,18 +104,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
     }
 
-    private fun loading() {
-        binding.loading.visibility = View.VISIBLE
-        binding.cbRememberMe.isEnabled = false
-        binding.btnLogin.isEnabled = false
-        binding.btnRegister.isEnabled = false
+    private fun loading(isLoading: Boolean) {
+        binding.loading.isVisible = isLoading
+        binding.loading.isClickable = isLoading
 
     }
 
-    private fun loaded() {
-        binding.loading.visibility = View.GONE
-        binding.cbRememberMe.isEnabled = true
-        binding.btnLogin.isEnabled = true
-        binding.btnRegister.isEnabled = true
-    }
 }

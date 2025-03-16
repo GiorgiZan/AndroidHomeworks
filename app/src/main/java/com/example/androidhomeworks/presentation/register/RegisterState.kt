@@ -1,8 +1,8 @@
 package com.example.androidhomeworks.presentation.register
 
 
-sealed class RegisterState {
-    data object Loading : RegisterState()
-    data object Success : RegisterState()
-    data class Error(val message: String) : RegisterState()
-}
+data class RegisterState(
+    val isLoading: Boolean = false,
+    val error: String? = null,
+    val success: Boolean = false
+)

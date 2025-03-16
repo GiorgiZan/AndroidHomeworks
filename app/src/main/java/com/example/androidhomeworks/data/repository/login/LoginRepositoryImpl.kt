@@ -2,6 +2,7 @@ package com.example.androidhomeworks.data.repository.login
 
 import com.example.androidhomeworks.common.ApiHelper
 import com.example.androidhomeworks.data.mapper.toDomain
+import com.example.androidhomeworks.data.preference_key.PreferenceKeys
 import com.example.androidhomeworks.domain.resource.Resource
 import com.example.androidhomeworks.data.remote.retrofit.RetrofitService
 import com.example.androidhomeworks.domain.model.LoginResponse
@@ -19,16 +20,17 @@ class LoginRepositoryImpl @Inject constructor(
 
 ) : LoginRepository {
 
-    override suspend fun login(email: String, password: String, rememberMe: Boolean): Flow<Resource<LoginResponse>> =
+    override suspend fun login(
+        email: String,
+        password: String,
+        rememberMe: Boolean
+    ): Flow<Resource<LoginResponse>> =
         apiHelper.handleHttpRequest {
             retrofitService.login(email, password)
         }.onEach { result ->
             if (result is Resource.Success) {
-                if (rememberMe) {
-                    dataStoreRepository.saveLoginInfo(email)
-                } else {
-                    dataStoreRepository.saveSessionEmail(email)
-                }
+                dataStoreRepository.saveValue(PreferenceKeys.EMAIL, email)
+                dataStoreRepository.saveValue(PreferenceKeys.REMEMBER_ME, rememberMe)
             }
         }.mapResource { it.toDomain() }
 }

@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,7 +24,7 @@ class RegisterViewModel @Inject constructor(
     private val repeatPasswordValidationUseCase: RepeatPasswordValidationUseCase
 ) : ViewModel() {
 
-    private val _registerState = MutableStateFlow<RegisterState>(RegisterState.Loading)
+    private val _registerState = MutableStateFlow(RegisterState())
     val registerState: StateFlow<RegisterState> = _registerState
 
     private val _uiEvent = MutableSharedFlow<RegisterUiEvent>()
@@ -45,15 +46,23 @@ class RegisterViewModel @Inject constructor(
             } else if (!isRepeatPasswordValid) {
                 _uiEvent.emit(RegisterUiEvent.ShowRepeatPasswordError)
                 return@launch
-            } else {
-                _uiEvent.emit(RegisterUiEvent.RegisterSuccess)
             }
+            _registerState.update { it.copy(isLoading = true, error = null) }
 
             registerUseCase(email, password).collect { result ->
-                _registerState.value = when (result) {
-                    is Resource.Success -> RegisterState.Success
-                    is Resource.Error -> RegisterState.Error(result.errorMessage)
-                    is Resource.Loading -> RegisterState.Loading
+                when (result) {
+                    is Resource.Success -> {
+                        _registerState.update { RegisterState(success = true) }
+                        _uiEvent.emit(RegisterUiEvent.NavigateToLoginScreen)
+                    }
+
+                    is Resource.Error -> {
+                        _registerState.update { RegisterState(error = result.errorMessage) }
+                    }
+
+                    is Resource.Loading -> {
+                        _registerState.update { it.copy(isLoading = true) }
+                    }
                 }
             }
         }

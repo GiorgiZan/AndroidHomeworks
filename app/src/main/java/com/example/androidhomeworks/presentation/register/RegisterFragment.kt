@@ -1,7 +1,7 @@
 package com.example.androidhomeworks.presentation.register
 
 import android.os.Bundle
-import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
@@ -10,25 +10,28 @@ import com.example.androidhomeworks.R
 import com.example.androidhomeworks.databinding.FragmentRegisterBinding
 import com.example.androidhomeworks.presentation.base_framgent.BaseFragment
 import com.example.androidhomeworks.presentation.extension.lifecyclescope.lifecycleCollectLatest
-import com.google.android.material.snackbar.Snackbar
+import com.example.androidhomeworks.presentation.extension.lifecyclescope.showErrorSnackBar
+import com.example.androidhomeworks.presentation.extension.lifecyclescope.showSuccessSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
 
     private val registerViewModel: RegisterViewModel by viewModels()
-    private var hasNavigatedToLogin = false
 
     override fun listeners() {
-
         binding.btnRegister.setOnClickListener {
-            observeUiEvents()
             registerViaService()
 
         }
         binding.ivBackIcon.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    override fun observer() {
+        observeRegisterState()
+        observeUiEvents()
     }
 
     private fun registerViaService() {
@@ -40,35 +43,20 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     }
 
-    private fun registerStateManagement() {
+    private fun observeRegisterState() {
         lifecycleCollectLatest(registerViewModel.registerState) { state ->
-            when (state) {
-                is RegisterState.Loading -> loading()
-                is RegisterState.Success -> {
-                    if (!hasNavigatedToLogin) {
-                        hasNavigatedToLogin = true
-                        loaded()
-
-                        val result = Bundle().apply {
-                            putString("email", binding.etEmail.text.toString())
-                            putString("password", binding.etPassword.text.toString())
-                        }
-                        setFragmentResult("requestKey", result)
-
-                        Snackbar.make(
-                            binding.root,
-                            getString(R.string.register_successful),
-                            Snackbar.LENGTH_LONG
-                        ).show()
-                        navigateToLogin()
-                    }
+            loading(state.isLoading)
+            if (state.success) {
+                val result = Bundle().apply {
+                    putString("email", binding.etEmail.text.toString())
+                    putString("password", binding.etPassword.text.toString())
                 }
-
-                is RegisterState.Error -> {
-                    loaded()
-                    Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
-                }
+                setFragmentResult("requestKey", result)
+                binding.root.showSuccessSnackBar(getString(R.string.register_successful))
+            } else {
+                state.error?.let { binding.root.showErrorSnackBar(it) }
             }
+
         }
     }
 
@@ -88,8 +76,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     binding.etRepeatPassword.error = getString(R.string.passwords_should_be_equal)
                 }
 
-                is RegisterUiEvent.RegisterSuccess -> {
-                    registerStateManagement()
+                is RegisterUiEvent.NavigateToLoginScreen -> {
+                    navigateToLogin()
                 }
 
             }
@@ -107,16 +95,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         )
     }
 
-    private fun loading() {
-        binding.loading.visibility = View.VISIBLE
-        binding.btnRegister.isEnabled = false
-        binding.ivBackIcon.isEnabled = false
+    private fun loading(isLoading: Boolean) {
+        binding.loading.isVisible = isLoading
+        binding.loading.isClickable = isLoading
 
-    }
-
-    private fun loaded() {
-        binding.loading.visibility = View.GONE
-        binding.ivBackIcon.isEnabled = true
-        binding.btnRegister.isEnabled = true
     }
 }
