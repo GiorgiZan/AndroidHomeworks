@@ -2,6 +2,7 @@ package com.example.androidhomeworks.common
 
 
 import android.content.Context
+import com.example.androidhomeworks.domain.resource.Resource
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
