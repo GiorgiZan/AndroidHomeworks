@@ -14,3 +14,13 @@ data class GetEquipment(
     val main: Boolean? = null,
     val children: List<GetEquipment> = emptyList()
 )
+
+
+fun GetEquipment.calculateDepth(allEquipment: List<GetEquipment>, depth: Int = 0): Int {
+    for (parent in allEquipment) {
+        if (parent.children.contains(this)) {
+            return parent.calculateDepth(allEquipment, depth + 1)
+        }
+    }
+    return depth
+}

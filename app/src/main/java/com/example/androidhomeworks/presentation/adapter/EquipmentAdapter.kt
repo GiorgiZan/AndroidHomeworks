@@ -8,19 +8,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidhomeworks.databinding.EquipmentItemBinding
 import com.example.androidhomeworks.presentation.model.GetEquipment
+import com.example.androidhomeworks.presentation.model.calculateDepth
 
 class EquipmentAdapter : ListAdapter<GetEquipment, EquipmentAdapter.EquipmentViewHolder>(EquipmentDiffUtil())  {
 
 
     inner class EquipmentViewHolder(private val binding: EquipmentItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun onBind(equipment: GetEquipment) {
+        fun onBind(equipment: GetEquipment, depth: Int) {
             binding.tvEquipName.text = equipment.name
 
-            val childAdapter = OrangeDotAdapter(equipment.children.take(4))
+            val dotAdapter = OrangeDotAdapter(depth)
 
             binding.recyclerViewOrangeDots.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = childAdapter
+                adapter = dotAdapter
             }
         }
     }
@@ -38,7 +39,9 @@ class EquipmentAdapter : ListAdapter<GetEquipment, EquipmentAdapter.EquipmentVie
 
     override fun onBindViewHolder(holder: EquipmentViewHolder, position: Int) {
         val equipment = getItem(position)
-        holder.onBind(equipment)
+        val depth = equipment.calculateDepth(currentList)
+        val limitedDepth = depth.coerceAtMost(4)
+        holder.onBind(equipment, limitedDepth)
     }
 }
 

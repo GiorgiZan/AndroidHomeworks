@@ -14,3 +14,7 @@ data class Equipment(
     val main: Boolean? = null,
     val children: List<Equipment> = emptyList()
 )
+
+fun Equipment.flatten(): List<Equipment> {
+    return listOf(this) + children.flatMap { it.flatten() }
+}

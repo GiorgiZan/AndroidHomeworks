@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidhomeworks.databinding.OrangeDotBinding
-import com.example.androidhomeworks.presentation.model.GetEquipment
 
-class OrangeDotAdapter(private val childrenList: List<GetEquipment>) :
+class OrangeDotAdapter(private val dotCount: Int) :
     RecyclerView.Adapter<OrangeDotAdapter.RedDotViewHolder>() {
 
     inner class RedDotViewHolder(binding: OrangeDotBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -24,6 +23,6 @@ class OrangeDotAdapter(private val childrenList: List<GetEquipment>) :
     }
 
     override fun getItemCount(): Int {
-        return childrenList.size
+        return dotCount
     }
 }
