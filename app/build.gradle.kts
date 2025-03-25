@@ -6,6 +6,9 @@ plugins {
     alias(libs.plugins.devtools.ksp)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+
+    alias(libs.plugins.google.services)
+
 }
 
 android {
@@ -73,6 +76,12 @@ dependencies {
     kapt(libs.hilt.android.compiler)
 
     implementation(libs.logging.interceptor)
+
+
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.storage.ktx)
+    implementation(libs.firebase.messaging)
 
 }
 

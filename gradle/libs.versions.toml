@@ -25,6 +25,8 @@ datastoreVer = "1.1.2"
 pagingVer = "3.1.1"
 kspVer = "2.0.21-1.0.27"
 hiltVer = "2.51.1"
+googleServices = "4.4.2"
+firebaseBom = "33.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -54,6 +56,9 @@ paging-runtime = {group = "androidx.paging", name = "paging-runtime", version.re
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime" , version.ref = "roomRuntime" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-storage-ktx = { module = "com.google.firebase:firebase-storage-ktx" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -63,6 +68,7 @@ serialization = {id = "org.jetbrains.kotlin.plugin.serialization", version.ref =
 devtools-ksp = {id = "com.google.devtools.ksp", version.ref = "kspVer"}
 hilt-plugin = {id = "com.google.dagger.hilt.android", version.ref = "hiltVer"}
 
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 
 kotlin-kapt = {id = "kotlin-kapt"}
 hilt = {id = "com.google.dagger.hilt.android"}
