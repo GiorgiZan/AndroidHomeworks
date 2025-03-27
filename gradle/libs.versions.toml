@@ -27,6 +27,8 @@ kspVer = "2.0.21-1.0.27"
 hiltVer = "2.51.1"
 googleServices = "4.4.2"
 firebaseBom = "33.11.0"
+workRuntimeKtx = "2.10.0"
+hiltWorkVer = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,6 +36,8 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigationFragment" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationFragment" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomRuntime" }
+    androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
+google-firebase-storage-ktx = { module = "com.google.firebase:firebase-storage-ktx" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -59,6 +63,7 @@ androidx-room-runtime = { module = "androidx.room:room-runtime" , version.ref = 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-storage-ktx = { module = "com.google.firebase:firebase-storage-ktx" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
+androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWorkVer" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
