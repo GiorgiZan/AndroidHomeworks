@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
-    <string name="category">Category</string>
-    <string name="suggestions">Suggestions</string>
 </resources>
