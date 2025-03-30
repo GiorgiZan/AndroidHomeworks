@@ -1,4 +1,4 @@
-package com.example.androidhomeworks.common
+package com.example.androidhomeworks.domain.common
 
 import android.content.Context
 import android.net.ConnectivityManager

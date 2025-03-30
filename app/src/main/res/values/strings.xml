@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">AndroidHomeworks</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="transfer_internally">Transfer internally</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="continue_button">continue</string>
+    <string name="select_account">Select Account</string>
+    <string name="by_account_number_22_characters">By Account Number (22 characters)</string>
+    <string name="by_personal_number_11_digits">By Personal Number (11 digits)</string>
+    <string name="by_phone_number_9_digits">By Phone Number (9 digits)</string>
+    <string name="submit">Submit</string>
+    <string name="choose_transfer_type">Choose transfer type</string>
+    <string name="selectaccountbottomsheetTag">SelectAccountBottomSheet</string>
+    <string name="transfertobottomsheetTag">TransferToBottomSheet</string>
+    <string name="gel">GEL</string>
+    <string name="usd">USD</string>
+    <string name="euro">EURO</string>
+    <string name="account_number_length_should_be_22">Account number length should be 22!</string>
+    <string name="personal_number_length_should_be_11">Personal number length should be 11!</string>
+    <string name="phone_number_length_should_be_9">Phone number length should be 9!</string>
+    <string name="_400">400 %1$s</string>
+    <string name="cash">cash</string>
+    <string name="success">ValidateAccountNumber(status=Success)</string>
+    <string name="sell">Sell</string>
+    <string name="_0_0">0.0</string>
+    <string name="description">Description</string>
 </resources>

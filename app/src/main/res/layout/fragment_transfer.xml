@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_blue"
+    tools:context=".presentation.screens.transfer.TransferFragment">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTransferTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/transfer_internally"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/from"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTransferTitle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvFromContainer"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/rounded_white_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFrom" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivFromCardIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/circle"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@id/tvFromContainer"
+        app:layout_constraintStart_toStartOf="@id/tvFromContainer"
+        app:layout_constraintTop_toTopOf="@id/tvFromContainer" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvFromCash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/cash"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/ivFromCardIcon"
+        app:layout_constraintTop_toTopOf="@+id/tvFromContainer" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvFromAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/tvFromContainer"
+        app:layout_constraintStart_toEndOf="@+id/ivFromCardIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvFromIban"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvFromContainer"
+        app:layout_constraintEnd_toEndOf="@+id/tvFromContainer"
+        app:layout_constraintTop_toTopOf="@+id/tvFromContainer" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/to"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFromContainer" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvToContainer"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/rounded_white_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTo" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivToCardIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/visa"
+        android:background="@drawable/circle"
+        app:layout_constraintBottom_toBottomOf="@+id/tvToContainer"
+        app:layout_constraintStart_toStartOf="@+id/tvToContainer"
+        app:layout_constraintTop_toTopOf="@+id/tvToContainer" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvToCash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/cash"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/ivToCardIcon"
+        app:layout_constraintTop_toTopOf="@+id/tvToContainer" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvToAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/tvToContainer"
+        app:layout_constraintStart_toEndOf="@+id/ivToCardIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvToIBAN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvToContainer"
+        app:layout_constraintEnd_toEndOf="@+id/tvToContainer"
+        app:layout_constraintTop_toTopOf="@+id/tvToContainer" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/appCompatButton"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/rounded_white_rectangle"
+        android:backgroundTint="@color/dark_gray"
+        android:text="@string/continue_button"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSellContainer"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/rounded_black_rectangle"
+        app:layout_constraintEnd_toStartOf="@id/tvConvertedSellContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvToContainer" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sell"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="15dp"
+        android:textSize="16sp"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toStartOf="@+id/tvSellContainer"
+        app:layout_constraintTop_toTopOf="@+id/tvSellContainer" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/tvAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:maxLength="7"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSellContainer"
+        app:layout_constraintStart_toStartOf="@+id/tvSellContainer"
+        app:layout_constraintTop_toBottomOf="@+id/tvSell" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvConvertedSellContainer"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_black_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toEndOf="@+id/tvSellContainer"
+        app:layout_constraintTop_toBottomOf="@+id/tvToContainer" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvConvertedSell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sell"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="15dp"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toStartOf="@+id/tvConvertedSellContainer"
+        app:layout_constraintTop_toTopOf="@+id/tvConvertedSellContainer" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvConvertedAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        android:text="@string/_0_0"
+        android:textColor="@color/white"
+        android:maxLength="10"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvConvertedSellContainer"
+        app:layout_constraintStart_toStartOf="@+id/tvConvertedSell"
+        app:layout_constraintTop_toBottomOf="@+id/tvConvertedSell" />
+
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDescriptionContainer"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/rounded_black_rectangle"
+
+        app:layout_constraintEnd_toStartOf="@id/tvConvertedSellContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSellContainer" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="15dp"
+        android:textSize="16sp"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toStartOf="@+id/tvDescriptionContainer"
+        app:layout_constraintTop_toTopOf="@+id/tvDescriptionContainer" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:maxLength="30"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDescriptionContainer"
+        app:layout_constraintStart_toStartOf="@+id/tvDescriptionContainer"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+    <FrameLayout
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/loading"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

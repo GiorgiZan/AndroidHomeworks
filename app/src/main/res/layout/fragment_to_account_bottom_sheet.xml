@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/by_account_number_22_characters"
+        android:inputType="text"
+        android:maxLength="22" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etPersonalNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/by_personal_number_11_digits"
+        android:maxLength="11"
+        android:inputType="number" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etPhoneNumber"
+        android:maxLength="9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/by_phone_number_9_digits" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rbGEL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/gel" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rbUSD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/usd" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rbEURO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/euro" />
+    </RadioGroup>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/submit" />
+</LinearLayout>
