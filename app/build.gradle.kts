@@ -73,7 +73,7 @@ dependencies {
     kapt(libs.hilt.android.compiler)
 
     implementation(libs.logging.interceptor)
-
+    implementation(libs.kotlinx.datetime)
 }
 
 kapt {
