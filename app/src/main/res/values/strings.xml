@@ -20,4 +20,7 @@
     <string name="failed_to_load_users">Failed to fetch users, loading locally saved users</string>
     <string name="login_successful">Login Successful</string>
     <string name="register_successful">Register Successful</string>
+    <string name="hide_password">Hide password</string>
+    <string name="show_password">Show password</string>
+    <string name="login_image">Login Image</string>
 </resources>

@@ -8,6 +8,6 @@ interface PasswordValidationUseCase{
 
 class PasswordValidationUseCaseImpl @Inject constructor() :PasswordValidationUseCase {
     override operator fun invoke(password: String): Boolean {
-        return password.isNotEmpty()
+        return password.isNotEmpty() && password.isNotBlank()
     }
 }

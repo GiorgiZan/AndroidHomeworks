@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.devtools.ksp)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -40,6 +41,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
     }
 }
 
@@ -72,6 +74,12 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
+    implementation (libs.androidx.activity.compose)
+    implementation (libs.androidx.fragment.ktx)
+    implementation (libs.androidx.ui)
+    implementation (libs.androidx.material)
+    implementation (libs.androidx.ui.tooling.preview)
+    implementation (libs.androidx.material.icons.extended)
 }
 
 kapt {

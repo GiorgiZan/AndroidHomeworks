@@ -19,6 +19,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.log
+
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -28,57 +30,75 @@ class LoginViewModel @Inject constructor(
     getEmailUseCase: GetEmailUseCase,
     clearLoginInfoUseCase: ClearLoginInfoUseCase,
     getRememberMeUseCase: GetRememberMeUseCase
-
 ) : ViewModel() {
+
     private val _loginState = MutableStateFlow(LoginState())
     val loginState: StateFlow<LoginState> = _loginState
 
-    private val _uiEvent = MutableSharedFlow<LoginUiEvent>()
-    val uiEvent = _uiEvent.asSharedFlow()
-
+    private val _uiEffect = MutableSharedFlow<LoginUiEffect>()
+    val uiEffect = _uiEffect.asSharedFlow()
 
     init {
         viewModelScope.launch {
-            if (!getRememberMeUseCase().first()!!){
+            if (!getRememberMeUseCase().first()!!) {
                 clearLoginInfoUseCase()
             }
             val savedEmail = getEmailUseCase().first()
 
             if (!savedEmail.isNullOrEmpty()) {
                 _loginState.value = _loginState.value.copy(success = true)
-                _uiEvent.emit(LoginUiEvent.NavigateToHomeScreen)
+                _uiEffect.emit(LoginUiEffect.NavigateToHomeScreen)
             }
         }
     }
 
-    fun login(email: String, password: String, rememberMe: Boolean) {
-        viewModelScope.launch {
-            if (!emailValidationUseCase(email)) {
-                _uiEvent.emit(LoginUiEvent.ShowEmailError)
-                return@launch
-            }
-            if (!passwordValidationUseCase(password)) {
-                _uiEvent.emit(LoginUiEvent.ShowPasswordError)
-                return@launch
+    fun onEvent(event: LoginUiEvent) {
+        when (event) {
+            is LoginUiEvent.Login -> login(event.email, event.password, event.rememberMe)
+            is LoginUiEvent.OnEmailChanged -> _loginState.update { state ->
+                state.copy(email = event.email, isEmailValid = isEmailValid(event.email))
             }
 
-            _loginState.update { it.copy(isLoading = true, error = null) }
+            is LoginUiEvent.OnPasswordChanged -> _loginState.update { state ->
+                state.copy(password = event.password, isPasswordValid = isPasswordValid(event.password))
+            }
+
+            is LoginUiEvent.OnRememberMeChanged -> _loginState.update { state ->
+                state.copy(rememberMe = event.checked)
+            }
+        }
+    }
+
+    private fun login(email: String, password: String, rememberMe: Boolean) {
+        viewModelScope.launch {
+            _loginState.update { it.copy(isLoading = true) }
 
             loginUseCase(email, password, rememberMe).collectLatest { result ->
                 when (result) {
                     is Resource.Success -> {
-                        _loginState.update { LoginState(success = true) }
-                        _uiEvent.emit(LoginUiEvent.NavigateToHomeScreen)
+                        _loginState.update { it.copy(success = true, isLoading = false) }
+                        _uiEffect.emit(LoginUiEffect.NavigateToHomeScreen)
                     }
+
                     is Resource.Error -> {
-                        _loginState.update { LoginState(error = result.errorMessage) }
+                        _loginState.update { it.copy(isLoading = false) }
+                        _uiEffect.emit(LoginUiEffect.ShowErrorSnackBar(result.errorMessage))
                     }
+
                     is Resource.Loading -> {
                         _loginState.update { it.copy(isLoading = true) }
                     }
                 }
             }
         }
+    }
+
+    private fun isPasswordValid(password: String): Boolean{
+        return passwordValidationUseCase(password)
+    }
+
+    private fun isEmailValid(email:String): Boolean{
+        return emailValidationUseCase(email)
     }
 
 }
