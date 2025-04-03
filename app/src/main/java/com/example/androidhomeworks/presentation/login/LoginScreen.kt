@@ -8,39 +8,33 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.flow.collectLatest
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.androidhomeworks.R
+import com.example.androidhomeworks.presentation.components.CustomOutlinedTextField
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.androidhomeworks.presentation.components.CollectSideEffect
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel,
+    viewModel: LoginViewModel = hiltViewModel(),
     onNavigateToRegister: () -> Unit,
     onNavigateToHome: () -> Unit
 ) {
-    val state by viewModel.loginState.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
     val snackBarHostState = remember { SnackbarHostState() }
-    var passwordVisibility: Boolean by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        viewModel.uiEffect.collectLatest { effect ->
-            when (effect) {
-                LoginUiEffect.NavigateToHomeScreen -> {
-                    onNavigateToHome()
-                }
-
-                is LoginUiEffect.ShowErrorSnackBar -> snackBarHostState.showSnackbar(effect.message)
+    CollectSideEffect( viewModel.uiEffect){effect ->
+        when (effect) {
+            LoginUiEffect.NavigateToHomeScreen -> {
+                onNavigateToHome()
             }
+
+            is LoginUiEffect.ShowErrorSnackBar -> snackBarHostState.showSnackbar(effect.message)
         }
     }
 
@@ -52,10 +46,10 @@ fun LoginScreen(
             contentDescription = null,
         )
         Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(top = 16.dp)
         ) {
             Text(
                 text = stringResource(R.string.login),
@@ -73,42 +67,27 @@ fun LoginScreen(
         }
 
         Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
         ) {
 
 
-            OutlinedTextField(
+            CustomOutlinedTextField(
                 value = state.email,
                 onValueChange = { viewModel.onEvent(LoginUiEvent.OnEmailChanged(it)) },
-                singleLine = true,
-                label = { Text(stringResource(R.string.email)) },
-                modifier = Modifier.fillMaxWidth()
+                label = stringResource(R.string.email)
             )
+
             Spacer(modifier = Modifier.height(8.dp))
 
-            OutlinedTextField(
+            CustomOutlinedTextField(
                 value = state.password,
-                singleLine = true,
                 onValueChange = { viewModel.onEvent(LoginUiEvent.OnPasswordChanged(it)) },
-                label = { Text(stringResource(R.string.password)) },
-                visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-                trailingIcon = {
-                    IconButton(onClick = {
-                        passwordVisibility = !passwordVisibility
-                    }) {
-                        Icon(
-                            imageVector = if (passwordVisibility) Icons.Default.Visibility else Icons.Default.VisibilityOff,
-                            contentDescription = if (passwordVisibility) stringResource(R.string.hide_password) else stringResource(
-                                R.string.show_password
-                            )
-                        )
-                    }
-                },
-                modifier = Modifier.fillMaxWidth()
+                label = stringResource(R.string.password),
+                isPassword = true
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -117,9 +96,9 @@ fun LoginScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Checkbox(
-                    modifier = Modifier.align(Alignment.CenterVertically),
                     checked = state.rememberMe,
-                    onCheckedChange = { viewModel.onEvent(LoginUiEvent.OnRememberMeChanged(it)) }
+                    onCheckedChange = { viewModel.onEvent(LoginUiEvent.OnRememberMeChanged(it)) },
+                    modifier = Modifier.align(Alignment.CenterVertically)
                 )
                 Text(text = stringResource(R.string.remember_me))
             }
@@ -157,18 +136,18 @@ fun LoginScreen(
         )
 
         Image(
-            modifier = Modifier.align(Alignment.BottomStart),
             painter = painterResource(id = R.drawable.circle_bottom),
             contentDescription = null,
+            modifier = Modifier.align(Alignment.BottomStart),
         )
 
         if (state.isLoading) {
             Box(
+                contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color.Black.copy(alpha = 0.5f))
-                    .clickable(enabled = false) { },
-                contentAlignment = Alignment.Center
+                    .clickable(enabled = false) { }
             ) {
                 CircularProgressIndicator(color = Color.White)
             }

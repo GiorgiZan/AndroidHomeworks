@@ -27,6 +27,8 @@ pagingVer = "3.1.1"
 kspVer = "2.0.21-1.0.27"
 hiltVer = "2.51.1"
 ui = "1.7.8"
+composeNavigation = "2.8.9"
+hiltNavigationCompose = "1.2.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -61,6 +63,11 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRunt
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime" , version.ref = "roomRuntime" }
 
+
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -72,5 +79,6 @@ hilt-plugin = {id = "com.google.dagger.hilt.android", version.ref = "hiltVer"}
 
 kotlin-kapt = {id = "kotlin-kapt"}
 hilt = {id = "com.google.dagger.hilt.android"}
+
 
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

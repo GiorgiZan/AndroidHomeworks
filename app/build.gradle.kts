@@ -80,6 +80,9 @@ dependencies {
     implementation (libs.androidx.material)
     implementation (libs.androidx.ui.tooling.preview)
     implementation (libs.androidx.material.icons.extended)
+    implementation(libs.navigation.compose)
+
+    implementation(libs.androidx.hilt.navigation.compose)
 }
 
 kapt {

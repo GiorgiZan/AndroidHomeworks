@@ -1,7 +1,7 @@
 package com.example.androidhomeworks.presentation.login
 
 
-data class LoginState(
+data class LoginUiState(
     val isLoading: Boolean = false,
     val success: Boolean = false,
     val email: String = "",
