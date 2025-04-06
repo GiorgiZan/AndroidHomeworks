@@ -1,11 +1,11 @@
 package com.example.androidhomeworks.presentation.register
 
 
-
-sealed class RegisterUiEvent {
-    data object ShowEmailError : RegisterUiEvent()
-    data object ShowPasswordError : RegisterUiEvent()
-    data object ShowRepeatPasswordError : RegisterUiEvent()
-    data object NavigateToLoginScreen : RegisterUiEvent()
+sealed interface RegisterUiEvent {
+    data class OnEmailChanged(val email: String) : RegisterUiEvent
+    data class OnPasswordChanged(val password: String) : RegisterUiEvent
+    data class OnRepeatedPasswordChanged(val password: String, val repeatedPassword: String) : RegisterUiEvent
+    data object OnLoginClick : RegisterUiEvent
+    data class Register(val email:String, val password: String, val repeatedPassword: String): RegisterUiEvent
 
 }

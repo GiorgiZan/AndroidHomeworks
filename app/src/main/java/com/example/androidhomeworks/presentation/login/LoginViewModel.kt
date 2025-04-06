@@ -67,7 +67,13 @@ class LoginViewModel @Inject constructor(
             is LoginUiEvent.OnRememberMeChanged -> updateState {
                 copy(rememberMe = event.checked)
             }
+
+            LoginUiEvent.OnRegisterClick -> onRegisterNav()
         }
+    }
+
+    private fun onRegisterNav(){
+        sendEffect(LoginUiEffect.NavigateToRegisterScreen)
     }
 
     private fun login(email: String, password: String, rememberMe: Boolean) {

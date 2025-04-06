@@ -52,7 +52,10 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.material3.android)
+    implementation(libs.androidx.storage)
     testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.navigation.fragment)
@@ -71,8 +74,8 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.paging)
 
-    implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt.android)
 
     implementation (libs.androidx.activity.compose)
     implementation (libs.androidx.fragment.ktx)
@@ -83,6 +86,35 @@ dependencies {
     implementation(libs.navigation.compose)
 
     implementation(libs.androidx.hilt.navigation.compose)
+
+    implementation(platform(libs.androidx.compose.bom))
+
+    implementation(libs.ui)
+    implementation(libs.ui.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling)
+
+    implementation(libs.activity.compose)
+    implementation(libs.androidx.paging.compose)
+
+    //coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
+    // JUnit for testing
+    testImplementation(libs.junit)
+
+    // MockK for mocking dependencies
+    testImplementation ("io.mockk:mockk:1.13.2")
+
+    // Coroutines Test
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+
+    // For testing coroutines with Dispatchers.Main (optional)
+    testImplementation ("androidx.arch.core:core-testing:2.1.0")
+
+    // Hilt (optional, for dependency injection in tests)
+    testImplementation ("com.google.dagger:hilt-android-testing:2.44")
+
 }
 
 kapt {

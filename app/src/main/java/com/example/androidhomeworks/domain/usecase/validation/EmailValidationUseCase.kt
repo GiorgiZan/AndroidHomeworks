@@ -8,6 +8,7 @@ interface EmailValidationUseCase{
 
 class EmailValidationUseCaseImpl @Inject constructor(): EmailValidationUseCase {
     override operator fun invoke(email: String): Boolean {
-        return email.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        val emailPattern = java.util.regex.Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$")
+        return email.isNotEmpty() && emailPattern.matcher(email).matches()
     }
 }

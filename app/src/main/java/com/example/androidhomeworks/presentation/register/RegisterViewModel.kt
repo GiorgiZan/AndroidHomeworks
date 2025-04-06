@@ -8,6 +8,7 @@ import com.example.androidhomeworks.domain.usecase.validation.EmailValidationUse
 import com.example.androidhomeworks.domain.usecase.validation.PasswordValidationUseCase
 import com.example.androidhomeworks.domain.usecase.validation.RepeatPasswordValidationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,47 +25,89 @@ class RegisterViewModel @Inject constructor(
     private val repeatPasswordValidationUseCase: RepeatPasswordValidationUseCase
 ) : ViewModel() {
 
-    private val _registerState = MutableStateFlow(RegisterState())
-    val registerState: StateFlow<RegisterState> = _registerState
+    private val _uiState = MutableStateFlow(RegisterUiState())
+    val uiState: StateFlow<RegisterUiState> = _uiState
 
-    private val _uiEvent = MutableSharedFlow<RegisterUiEvent>()
-    val uiEvent = _uiEvent.asSharedFlow()
+    private val _uiEffect = MutableSharedFlow<RegisterUiEffect>()
+    val uiEffect = _uiEffect.asSharedFlow()
 
 
-    fun register(email: String, password: String, repeatPassword: String) {
-        viewModelScope.launch {
-            val isEmailValid = emailValidationUseCase(email)
-            val isPasswordValid = passwordValidationUseCase(password)
-            val isRepeatPasswordValid = repeatPasswordValidationUseCase(password, repeatPassword)
-
-            if (!isEmailValid) {
-                _uiEvent.emit(RegisterUiEvent.ShowEmailError)
-                return@launch
-            } else if (!isPasswordValid) {
-                _uiEvent.emit(RegisterUiEvent.ShowPasswordError)
-                return@launch
-            } else if (!isRepeatPasswordValid) {
-                _uiEvent.emit(RegisterUiEvent.ShowRepeatPasswordError)
-                return@launch
+    fun onEvent(event: RegisterUiEvent) {
+        when (event) {
+            RegisterUiEvent.OnLoginClick -> onLoginNav()
+            is RegisterUiEvent.OnEmailChanged -> updateState {
+                copy(
+                    email = event.email,
+                    isEmailValid = isEmailValid(event.email)
+                )
             }
-            _registerState.update { it.copy(isLoading = true, error = null) }
+
+            is RegisterUiEvent.OnPasswordChanged -> updateState {
+                copy(
+                    password = event.password,
+                    isPasswordValid = isPasswordValid(event.password)
+                )
+            }
+
+            is RegisterUiEvent.OnRepeatedPasswordChanged -> updateState {
+                copy(
+                    repeatedPassword = event.repeatedPassword,
+                    isRepeatedPasswordValid = isRepeatedPasswordValid(event.password, event.repeatedPassword)
+                )
+            }
+
+            is RegisterUiEvent.Register -> register(event.email, event.password)
+        }
+    }
+
+    private fun register(email: String, password: String) {
+        viewModelScope.launch {
+            updateState { copy(isLoading = true) }
 
             registerUseCase(email, password).collect { result ->
                 when (result) {
                     is Resource.Success -> {
-                        _registerState.update { RegisterState(success = true) }
-                        _uiEvent.emit(RegisterUiEvent.NavigateToLoginScreen)
+                        _uiState.update { RegisterUiState(success = true, isLoading = false) }
+                        sendEffect(RegisterUiEffect.NavigateToLogin)
                     }
 
                     is Resource.Error -> {
-                        _registerState.update { RegisterState(error = result.errorMessage) }
+                        updateState { copy(isLoading = false) }
+                        sendEffect(RegisterUiEffect.ShowErrorSnackBar(result.errorMessage))
                     }
 
                     is Resource.Loading -> {
-                        _registerState.update { it.copy(isLoading = true) }
+                        _uiState.update { it.copy(isLoading = true) }
                     }
                 }
             }
+        }
+    }
+
+    private fun onLoginNav() {
+        sendEffect(RegisterUiEffect.NavigateToLogin)
+    }
+
+    private fun isPasswordValid(password: String): Boolean {
+        return passwordValidationUseCase(password)
+    }
+
+    private fun isRepeatedPasswordValid(password: String, repeatedPassword: String): Boolean {
+        return repeatPasswordValidationUseCase(password, repeatedPassword)
+    }
+
+    private fun isEmailValid(email: String): Boolean {
+        return emailValidationUseCase(email)
+    }
+
+
+    private fun updateState(state: RegisterUiState.() -> RegisterUiState) {
+        _uiState.update(state)
+    }
+
+    private fun sendEffect(effect: RegisterUiEffect) {
+        viewModelScope.launch(Dispatchers.Main.immediate) {
+            _uiEffect.emit(effect)
         }
     }
 

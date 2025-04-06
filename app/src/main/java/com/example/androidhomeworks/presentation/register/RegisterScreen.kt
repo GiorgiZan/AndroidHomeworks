@@ -1,38 +1,48 @@
-package com.example.androidhomeworks.presentation.login
+package com.example.androidhomeworks.presentation.register
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Mail
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.androidhomeworks.R
-import com.example.androidhomeworks.presentation.components.TextFieldComponent
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.androidhomeworks.presentation.components.BackIcon
 import com.example.androidhomeworks.presentation.components.ButtonComponent
 import com.example.androidhomeworks.presentation.components.CollectSideEffect
-import com.example.androidhomeworks.presentation.theme.AppTheme
+import com.example.androidhomeworks.presentation.components.TextFieldComponent
 
 @Composable
-fun LoginScreen(
-    viewModel: LoginViewModel = hiltViewModel(),
-    onNavigateToRegister: () -> Unit,
-    onNavigateToHome: () -> Unit
+fun RegisterScreen(
+    viewModel: RegisterViewModel = hiltViewModel(),
+    onNavigateToLogin: () -> Unit,
+    navigateBack: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val snackBarHostState = remember { SnackbarHostState() }
@@ -40,33 +50,32 @@ fun LoginScreen(
 
     CollectSideEffect(viewModel.uiEffect) { effect ->
         when (effect) {
-            LoginUiEffect.NavigateToHomeScreen -> onNavigateToHome()
-            is LoginUiEffect.ShowErrorSnackBar -> snackBarHostState.showSnackbar(effect.message)
-            LoginUiEffect.NavigateToRegisterScreen -> onNavigateToRegister()
+            RegisterUiEffect.NavigateToLogin -> onNavigateToLogin()
+            is RegisterUiEffect.ShowErrorSnackBar -> snackBarHostState.showSnackbar(effect.message)
         }
     }
-
-    LoginContent(
+    RegisterContent(
         state = state,
         snackBarHostState = snackBarHostState,
         onEvent = viewModel::onEvent,
-        scrollState = scrollState
+        scrollState = scrollState,
+        navigateBack = navigateBack
     )
 }
 
 @Composable
-fun LoginContent(
-    state: LoginUiState,
+fun RegisterContent(
+    state: RegisterUiState,
     snackBarHostState: SnackbarHostState,
-    onEvent: (LoginUiEvent) -> Unit,
-    scrollState: ScrollState
+    onEvent: (RegisterUiEvent) -> Unit,
+    scrollState: ScrollState,
+    navigateBack: () -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.circle_top),
             contentDescription = null,
         )
-
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -75,16 +84,23 @@ fun LoginContent(
                 .padding(16.dp)
                 .verticalScroll(scrollState),
         ) {
+            BackIcon(
+                onBack = navigateBack,
+                modifier = Modifier
+                    .padding(top = 20.dp, start = 6.dp)
+                    .align(Alignment.Start)
+            )
+
             Spacer(modifier = Modifier.height(50.dp))
             Text(
-                text = stringResource(R.string.login),
+                text = stringResource(R.string.register),
                 fontSize = 32.sp,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
             Image(
-                painter = painterResource(id = R.drawable.login_img),
-                contentDescription = stringResource(R.string.login_image),
+                painter = painterResource(id = R.drawable.register_img),
+                contentDescription = stringResource(R.string.register),
                 modifier = Modifier
                     .size(250.dp)
                     .padding(top = 8.dp)
@@ -94,7 +110,7 @@ fun LoginContent(
 
             TextFieldComponent(
                 value = state.email,
-                onValueChange = { onEvent(LoginUiEvent.OnEmailChanged(it)) },
+                onValueChange = { onEvent(RegisterUiEvent.OnEmailChanged(it)) },
                 label = stringResource(R.string.email),
                 leadingIcon = Icons.Default.Mail
             )
@@ -103,7 +119,7 @@ fun LoginContent(
 
             TextFieldComponent(
                 value = state.password,
-                onValueChange = { onEvent(LoginUiEvent.OnPasswordChanged(it)) },
+                onValueChange = { onEvent(RegisterUiEvent.OnPasswordChanged(it)) },
                 label = stringResource(R.string.password),
                 isPassword = true,
                 leadingIcon = Icons.Default.Lock
@@ -111,33 +127,40 @@ fun LoginContent(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Checkbox(
-                    checked = state.rememberMe,
-                    onCheckedChange = { onEvent(LoginUiEvent.OnRememberMeChanged(it)) }
-                )
-                Text(text = stringResource(R.string.remember_me))
-            }
-
-
-            ButtonComponent(
-                text = stringResource(R.string.login),
-                onClick = {
+            TextFieldComponent(
+                value = state.repeatedPassword,
+                onValueChange = {
                     onEvent(
-                        LoginUiEvent.Login(
-                            state.email,
+                        RegisterUiEvent.OnRepeatedPasswordChanged(
                             state.password,
-                            state.rememberMe
+                            it
                         )
                     )
-                }, enabled = state.isEmailValid && state.isPasswordValid
+                },
+                label = stringResource(R.string.password),
+                isPassword = true,
+                leadingIcon = Icons.Default.Lock
             )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
 
 
             ButtonComponent(
                 text = stringResource(R.string.register),
-                onClick = { onEvent(LoginUiEvent.OnRegisterClick) }, enabled = true
+                onClick = {
+                    onEvent(
+                        RegisterUiEvent.Register(
+                            state.email,
+                            state.password,
+                            state.repeatedPassword
+                        )
+                    )
+                },
+                enabled = state.isEmailValid && state.isPasswordValid && state.isRepeatedPasswordValid
             )
+
+
         }
 
         SnackbarHost(
@@ -163,26 +186,4 @@ fun LoginContent(
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LoginContentPreview() {
-    val dummyState = LoginUiState(
-        email = "preview@example.com",
-        password = "password",
-        rememberMe = true,
-        isEmailValid = true,
-        isPasswordValid = true,
-        isLoading = false
-    )
-    AppTheme {
-        LoginContent(
-            state = dummyState,
-            snackBarHostState = SnackbarHostState(),
-            onEvent = {},
-            scrollState = rememberScrollState()
-        )
-    }
-
 }
