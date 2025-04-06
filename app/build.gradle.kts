@@ -104,16 +104,16 @@ dependencies {
     testImplementation(libs.junit)
 
     // MockK for mocking dependencies
-    testImplementation ("io.mockk:mockk:1.13.2")
+    testImplementation (libs.mockk)
 
     // Coroutines Test
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation (libs.kotlinx.coroutines.test)
 
     // For testing coroutines with Dispatchers.Main (optional)
-    testImplementation ("androidx.arch.core:core-testing:2.1.0")
+    testImplementation (libs.androidx.core.testing)
 
     // Hilt (optional, for dependency injection in tests)
-    testImplementation ("com.google.dagger:hilt-android-testing:2.44")
+    testImplementation (libs.hilt.android.testing)
 
 }
 
